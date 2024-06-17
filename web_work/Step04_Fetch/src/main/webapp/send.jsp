@@ -3,4 +3,4 @@
 <%
 	System.out.println("msg : " + request.getParameter("msg"));
 %>
-<li><%= request.getParameter("msg") %></li>
+<%= request.getParameter("msg") %>
