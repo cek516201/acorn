@@ -57,7 +57,7 @@
 		console.log(queryString);
 		//action 속성의 value 읽어오기
 		const url = e.target.action;
-		//fetch() 함수를 이용해서 post 방식 요청하기
+		//fetch() 함수를 이용해서 get 방식 요청하기
 		fetch(url + "?" + queryString).then(res=>res.json())
 		.then(data=>{
 			console.log(data.isSuccess);
