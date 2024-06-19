@@ -31,90 +31,90 @@
 		</form>
 	</div>
 	<script>
-		//닉네임 유효성 여부를 관리할 변수 
-		let isNickValid=false;
-		//비밀번호 유효성 여부를 관리할 변수 
-		let isPwdValid=false;
+	//닉네임 유효성 여부를 관리할 변수 
+	let isNickValid=false;
+	//비밀번호 유효성 여부를 관리할 변수 
+	let isPwdValid=false;
+	
+	/*
+		1. 닉네임을 입력했을때 유효성 여부를 변수에 저장한다.
+		2. 비밀번호를 입력했을때 유효성 여부를 변수에 저장한다.
+		3. 두 변수에 있는 값이 모두 true 일때만 가입 버튼의 disabled 속성을 제거하고 
+		   나머지 경우에는 disabled 속성을 추가하는 함수를 미리 만들어 두고 
+		4. 적절한 시점에 그 함수를 호출하게 하면 된다.
 		
-		/*
-			1. 닉네임을 입력했을때 유효성 여부를 변수에 저장한다.
-			2. 비밀번호를 입력했을때 유효성 여부를 변수에 저장한다.
-			3. 두 변수에 있는 값이 모두 true 일때만 가입 버튼의 disabled 속성을 제거하고 
-			   나머지 경우에는 disabled 속성을 추가하는 함수를 미리 만들어 두고 
-			4. 적절한 시점에 그 함수를 호출하게 하면 된다.
-			
-			- disabled 속성 추가 하는 방법
-			버튼의 참조값.setAttribute("disabled", "")
-			- disabled 속성 제거 하는 방법
-			버튼의 참조값.removeAttribute("disabled")
-		*/
+		- disabled 속성 추가 하는 방법
+		버튼의 참조값.setAttribute("disabled", "")
+		- disabled 속성 제거 하는 방법
+		버튼의 참조값.removeAttribute("disabled")
+	*/
+	
+	const checkForm = ()=>{
+		//만일 닉네임도 유효하고 그리고 비밀번호도 유효 하다면
+		if(isNickValid && isPwdValid){
+			//전송 버튼에 disabled 속성을 제거하고 
+			document.querySelector("[type=submit]").removeAttribute("disabled");
+		}else{
+			//전송 버튼에 disabled 속성을 추가한다
+			document.querySelector("[type=submit]").setAttribute("disabled", "");
+		}
+	};
+	
+	//닉네임을 검증할 정규표현식 객체 
+	const reg_nick=/^[a-zA-Z]+$/;
+	
+	//닉네임을 입력했을때 실행할 함수 등록
+	document.querySelector("#nick").addEventListener("input", ()=>{
+		//현재까지 입력한 닉네임을 읽어온다.
+		let inputNick=document.querySelector("#nick").value;
+		//만일 정규 표현식을 통과 하지 못했다면 
+		if(reg_nick.test(inputNick) == false){
+			document.querySelector("#nick").classList.remove("is-valid");
+			document.querySelector("#nick").classList.add("is-invalid");
+			//사용할수 없는 닉네임이라는 의미에서 false 를 넣어준다.
+			isNickValid=false;
+			checkForm();
+			return;//함수를 여기서 종료해라 
+		}
 		
-		const checkForm = ()=>{
-			//만일 닉네임도 유효하고 그리고 비밀번호도 유효 하다면
-			if(isNickValid && isPwdValid){
-				//전송 버튼에 disabled 속성을 제거하고 
-				document.querySelector("[type=submit]").removeAttribute("disabled");
+		//fetch() 함수를 이용해서 get 방식으로 입력한 닉네임을 보내고 사용가능 여부를 json 으로 응답받는다.
+		fetch("check_nick.jsp?nick="+inputNick)
+		.then(res=>res.json())
+		.then(data=>{
+			//일단 클래스를 제거한 후에 
+			document.querySelector("#nick").classList.remove("is-valid", "is-invalid");
+			//data 는 {canUse:true} or {canUse:false} 형태의 object 이다.
+			if(data.canUse){
+				document.querySelector("#nick").classList.add("is-valid");
+				//사용할수 있는 닉네임이라는 의미에서 true 를 넣어준다.
+				isNickValid=true;
 			}else{
-				//전송 버튼에 disabled 속성을 추가한다
-				document.querySelector("[type=submit]").setAttribute("disabled", "");
-			}
-		};
-		
-		//닉네임을 검증할 정규표현식 객체 
-		const reg_nick=/^[a-zA-Z]+$/;
-		
-		//닉네임을 입력했을때 실행할 함수 등록
-		document.querySelector("#nick").addEventListener("input", ()=>{
-			//현재까지 입력한 닉네임을 읽어온다.
-			let inputNick=document.querySelector("#nick").value;
-			//만일 정규 표현식을 통과 하지 못했다면 
-			if(!reg_nick.test(inputNick)){
 				document.querySelector("#nick").classList.add("is-invalid");
 				//사용할수 없는 닉네임이라는 의미에서 false 를 넣어준다.
 				isNickValid=false;
-				checkForm();
-				return;//함수를 여기서 종료해라 
-			}
-			
-			//fetch() 함수를 이용해서 get 방식으로 입력한 닉네임을 보내고 사용가능 여부를 json 으로 응답받는다.
-			fetch("check_nick.jsp?nick="+inputNick)
-			.then(res=>res.json())
-			.then(data=>{
-				//일단 클래스를 제거한 후에 
-				document.querySelector("#nick").classList.remove("is-valid");
-				document.querySelector("#nick").classList.remove("is-invalid");
-				//data 는 {canUse:true} or {canUse:false} 형태의 object 이다.
-				if(data.canUse){
-					document.querySelector("#nick").classList.add("is-valid");
-					//사용할수 있는 닉네임이라는 의미에서 true 를 넣어준다.
-					isNickValid=true;
-				}else{
-					document.querySelector("#nick").classList.add("is-invalid");
-					//사용할수 없는 닉네임이라는 의미에서 false 를 넣어준다.
-					isNickValid=false;
-				}
-				checkForm();
-			});
-		});
-		//함수를 미리 만들어서 
-		const checkPwd = ()=>{
-			//양쪽에 입력한 비밀번호를 읽어와서
-			let pwd=document.querySelector("#pwd").value;
-			let pwd2=document.querySelector("#pwd2").value;
-			//양쪽을 같게 입력하면 is-valid 를 추가하고 그렇지 않으면 is-invalid 를 추가한다.
-			document.querySelector("#pwd").classList.remove("is-valid");
-			document.querySelector("#pwd").classList.remove("is-invalid");
-			if(pwd == pwd2){
-				document.querySelector("#pwd").classList.add("is-valid");
-				//비밀번호가 유효 하다는 의미에서 true 를 넣어준다.
-				isPwdValid=true;
-			}else{
-				document.querySelector("#pwd").classList.add("is-invalid");
-				//비밀번호가 유효 하지 않다는 의미에서 false 를 넣어준다.
-				isPwdValid=false;
 			}
 			checkForm();
-		};
+		});
+	});
+	//함수를 미리 만들어서 
+	const checkPwd = ()=>{
+		//양쪽에 입력한 비밀번호를 읽어와서
+		let pwd=document.querySelector("#pwd").value;
+		let pwd2=document.querySelector("#pwd2").value;
+		//양쪽을 같게 입력하면 is-valid 를 추가하고 그렇지 않으면 is-invalid 를 추가한다.
+		document.querySelector("#pwd").classList.remove("is-valid");
+		document.querySelector("#pwd").classList.remove("is-invalid");
+		if(pwd == pwd2){
+			document.querySelector("#pwd").classList.add("is-valid");
+			//비밀번호가 유효 하다는 의미에서 true 를 넣어준다.
+			isPwdValid=true;
+		}else{
+			document.querySelector("#pwd").classList.add("is-invalid");
+			//비밀번호가 유효 하지 않다는 의미에서 false 를 넣어준다.
+			isPwdValid=false;
+		}
+		checkForm();
+	};
 		
 		document.querySelector("#pwd").addEventListener("input", checkPwd);
 		
