@@ -15,7 +15,7 @@
 	// cos.jar에 있는 MultipartRequest 클래스로 객체 생성하기
 	MultipartRequest mr = new MultipartRequest(request, // 내부적으로 필요한 HttpServletRequest 객체 전달
 											   realPath, // 업로드할 파일을 저장할 경로
-											   1024*1024*100, // 최대 업로드 사이즈 제한
+											   1024*1024*100, // 최대 업로드 사이즈 제한(byte)
 											   "utf-8", // 한글 파일명 깨지지 않도록
 											   new DefaultFileRenamePolicy()); // 동일한 파일이 존재하면 자동으로 파일을 rename해서 저장하도록
 
