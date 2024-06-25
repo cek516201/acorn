@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/vue2/Step02_model.html</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<h1>v-model 사용하기</h1>
+	<div id="app">
+		<input type="text" @input="onInput"/>
+		<p>{{msg}}</p>
+		<input type="text" v-model="greet"/>
+		<p>{{greet}}</p>
+	</div>
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				msg:"",
+				greet:""
+			},
+			methods:{
+				onInput(e){
+					this.msg = e.target.value;
+				}
+			}
+		});
+	</script>
+</body>
+</html>

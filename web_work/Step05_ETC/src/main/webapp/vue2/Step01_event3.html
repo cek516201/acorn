@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/vue2/Step01_event3.html</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<style>
+.box {
+	width: 500px;
+	height: 500px;
+	border: 1px solid red;
+}
+</style>
+</head>
+<body>
+	<div class="container" id="app">
+		<h1>마우스 이벤트 처리</h1>
+		<!-- v-on:을 줄여서 @로 가능 -->
+		<div class="box" @mousemove="onMouseMove">
+			x : {{x}}
+			<br>
+			y : {{y}}
+		</div>
+	</div>
+	<script>
+	 new Vue({
+		 el:"#app",
+		 data:{
+			 x:0,
+			 y:0
+		 },
+		 methods:{
+			 onMouseMove(e){
+				 this.x = e.offsetX;
+				 this.y = e.offsetY;
+			 }
+		 }
+	 });
+	</script>
+</body>
+</html>

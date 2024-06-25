@@ -1,7 +1,7 @@
 <%@page import="test.member.dto.MemberDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
@@ -40,18 +40,3 @@
 	</table>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
