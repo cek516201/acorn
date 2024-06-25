@@ -12,7 +12,7 @@
 		<c:choose>
 			<c:when test="${not empty sessionScope.id}">
 				<p>
-					${id} 로그인
+					<a href="${pageContext.request.contextPath}/user/private/info.jsp">${id}</a> 로그인
 					<br>
 					<a href="${pageContext.request.contextPath}/user/logout.jsp">로그아웃</a>
 				</p>

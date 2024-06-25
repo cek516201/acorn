@@ -81,35 +81,63 @@ public class userDao {
 		return dto;
 	}
 
-//	public boolean update(userDto dto) {
-//		int rowCount = 0;
-//
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		try {
-//			conn = new DbcpBean().getConn();
-//			String sql = "update member set name=?, addr=? where num=?";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1, dto.getName());
-//			pstmt.setString(2, dto.getAddr());
-//			pstmt.setInt(3, dto.getNum());
-//			rowCount = pstmt.executeUpdate();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				if (pstmt != null)
-//					pstmt.close();
-//				if (conn != null)
-//					conn.close();
-//			} catch (Exception e2) {
-//				e2.printStackTrace();
-//			}
-//		}
-//
-//		return rowCount > 0;
-//	}
-//
+	public boolean updatePwd(userDto dto) {
+		int rowCount = 0;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = new DbcpBean().getConn();
+			String sql = "update user_info set pwd=? where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getPwd());
+			pstmt.setString(2, dto.getId());
+			rowCount = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+		return rowCount > 0;
+	}
+	
+	public boolean update(userDto dto) {
+		int rowCount = 0;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = new DbcpBean().getConn();
+			String sql = "update user_info set email=?, profile=? where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getEmail());
+			pstmt.setString(2, dto.getProfile());
+			pstmt.setString(3, dto.getId());
+			rowCount = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+		return rowCount > 0;
+	}
+
 //	public boolean delete(int num) {
 //		int rowCount = 0;
 //
