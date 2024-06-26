@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 // 2. 추상메소드 오벼라이딩
 // 3. @WebFilter() 어노테이션을 이용해서 필터 맵핑
 
-@WebFilter({ "/user/private/*"})
+@WebFilter({"/user/private/*", "/file/private/*"})
 public class LoginFilter implements Filter {
 	@Override
 	public void destroy() {

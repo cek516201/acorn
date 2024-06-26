@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/vue2/Step06_for.html</title>
+</head>
+<body>
+	<div class="container" id="app">
+		<h3>목록 출력</h3>
+		<ul>
+			<li v-for="item in ['ㅁㅁㅁ', 'ㄴㄴㄴ', 'ㅇㅇㅇ',]">{{item}}</li>
+		</ul>
+		
+		<h3>목록 출력</h3>
+		<ul>
+			<li v-for="elem in animals">{{elem}}</li>
+		</ul>
+		
+		<h3>회원 목록</h3>
+		<ul>
+			<li v-for="member in members">번호:{{member.num}} 이름:{{member.name}} 주소:{{member.addr}}</li>
+		</ul>
+		
+		<h3>회원 목록</h3>
+		<table>
+			<tr>
+				<th>번호</th>
+				<th>이름</th>
+				<th>주소</th>
+			</tr>
+			<tr v-for="member in members">
+				<td>{{member.num}}</td>
+				<td>{{member.name}}</td>
+				<td>{{member.addr}}</td>
+			</tr>
+		</table>
+		
+		<h3>회원 목록</h3>
+		<table>
+			<tr>
+				<th>번호</th>
+				<th>이름</th>
+				<th>주소</th>
+			</tr>
+			<tr v-for="member in members2">
+				<td>{{member.num}}</td>
+				<td>{{member.name}}</td>
+				<td>{{member.addr}}</td>
+			</tr>
+		</table>
+		<button @click="getMembers">목록 받아오기</button>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				animals:["ㅂㅂㅂ", "ㅈㅈㅈ", "ㄷㄷㄷ"],
+ 				members:[
+					{num:1, name:"ㅁㅁㅁ", addr:"aaa"},
+					{num:2, name:"ㄴㄴㄴ", addr:"sss"},
+					{num:3, name:"ㅇㅇㅇ", addr:"ddd"}
+				],
+				members2:[]
+			},
+			methods:{
+				getMembers(){
+					this.members2 = this.members;
+				}
+			}
+		});
+	</script>
+</body>
+</html>
