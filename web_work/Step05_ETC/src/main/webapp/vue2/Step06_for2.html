@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/vue2/Step06_for2.html</title>
+</head>
+<body>
+	<div class="container" id="app">
+		<input ref="one" type="text" placeholder="메세지 입력" v-model="message"/>
+		<button @click="addMessage">추가</button>
+		<ul>
+			<li v-for="elem in msgs">{{elem}}</li>
+		</ul>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				message:"",
+				msgs:[]
+			},
+			methods:{
+				addMessage(){
+					// this.msgs.push(this.message);
+					
+					// 파라미터로 받은 배열이나 값들을 기존의 배열에 합쳐서, 새로운 배열을 만들어서 리턴
+					// this.msgs = this.msgs.concat(this.msgs);
+					// 똑같이 동작(오브젝트로도 가능)
+					this.msgs = [...this.msgs, this.message];
+					
+					this.message="";
+					this.$refs.one.focus();
+				}
+			}
+		});
+	</script>
+</body>
+</html>

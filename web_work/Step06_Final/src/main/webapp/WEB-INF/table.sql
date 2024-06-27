@@ -15,5 +15,19 @@ CREATE TABLE board_file(
 	fileSize NUMBER NOT NULL, -- 파일의 크기
 	regdate DATE
 );
-
 CREATE SEQUENCE board_file_seq;
+
+CREATE TABLE board_cafe(
+	num NUMBER PRIMARY KEY, -- 글번호
+	writer VARCHAR2(100) NOT NULL, -- 작성자
+	title VARCHAR2(100) NOT NULL, -- 제목
+	content CLOB, -- 글 내용
+	viewCount NUMBER, -- 조회수
+	regdate DATE -- 작성일
+);
+CREATE SEQUENCE board_cafe_seq;
+
+CREATE TABLE readed_data(
+	num NUMBER REFERENCES board_cafe(num),
+	session_id VARCHAR2(50)
+);
