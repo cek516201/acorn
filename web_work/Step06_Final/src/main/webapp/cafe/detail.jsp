@@ -4,10 +4,18 @@
     pageEncoding="UTF-8"%>
 <%
 	int num = Integer.parseInt(request.getParameter("num"));
-	CafeDto dto = CafeDao.getInstance().getData(num);
 	
 	//로그인된 아이디가 있으면 읽어온다(null 일수도 있다)
 	String id = (String)session.getAttribute("id");
+	
+	String sessionId = session.getId();
+	boolean isReaded = CafeDao.getInstance().isReaded(num, sessionId);
+	if(!isReaded){
+		CafeDao.getInstance().addViewCount(num);
+		CafeDao.getInstance().insertReaded(num, sessionId);
+	}
+	
+	CafeDto dto = CafeDao.getInstance().getData(num);
 %>
 <!DOCTYPE html>
 <html>

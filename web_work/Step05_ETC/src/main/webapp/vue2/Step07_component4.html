@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/vue2/Step07_component4.html</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container" id="app">
+		<locknum v-bind:color="'red'" @ten="onLockNum"></locknum>
+		<locknum v-bind:color="'green'" @ten="onLockNum"></locknum>
+		<counter v-bind:color="'blue'" @ten="onTen"></counter>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		Vue.component("locknum", {
+			data(){
+				return {
+					count:0
+				};
+			},
+			methods:{
+				clicked(){
+					this.count++;
+					if(this.count >= 10){
+						this.count = 0;
+						this.$emit("ten");
+					}
+				}
+			},
+			props:["color"],
+			template:`
+				<button @click="clicked" v-bind:style="{color:color}">{{count}}</button>
+			`
+		});
+	
+		Vue.component("counter", {
+			data(){
+				return {
+					count:0
+				};
+			},
+			methods:{
+				clicked(){
+					this.count++;
+					if(this.count % 10 == 0){
+						// this.$emit("ten");
+						this.$emit("ten", {current:this.count});
+					}
+				}
+			},
+			props:["color"],
+			template:`
+				<button @click="clicked" v-bind:style="{color:color}">{{count}}</button>
+			`
+		});
+	
+		new Vue({
+			el:"#app",
+			data:{},
+			methods:{
+				onTen(e){
+					console.log("10의 배수");
+					console.log(e.current);
+				},
+				onLockNum(){
+					console.log("lockNum");
+				}
+			}
+		});
+	</script>
+</body>
+</html>

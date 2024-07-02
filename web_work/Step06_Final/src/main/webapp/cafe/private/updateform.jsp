@@ -18,6 +18,10 @@
 		<h1>글 수정 양식</h1>
 		<form action="${pageContext.request.contextPath}/cafe/private/update.jsp" method="post">
 			<div class="mb-2">
+				<label class="form-label" for="num">번호</label>
+				<input class="form-control" type="text" id="num" name="num" value="<%=dto.getNum() %>" readonly/>
+			</div>
+			<div class="mb-2">
 				<label class="form-label" for="title">제목</label>
 				<input class="form-control" type="text" name="title" id="title" value="<%= dto.getTitle() %>"/>
 			</div>

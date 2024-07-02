@@ -3,15 +3,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	int num = Integer.parseInt(request.getParameter("num"));
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
-	int num = Integer.parseInt(request.getParameter("num"));
-
+	
 	CafeDto dto = new CafeDto();
+	dto.setNum(num);
 	dto.setTitle(title);
 	dto.setContent(content);
-	dto.setNum(num);
-
+	
 	boolean isSuccess = CafeDao.getInstance().update(dto);
 %>
 <!DOCTYPE html>
@@ -24,10 +24,10 @@
 	<script>
 		<% if(isSuccess){ %>
 		alert("수정 성공");
-		location.href="${pageContext.request.contextPath}/cafe/list.jsp";
+		location.href="${pageContext.request.contextPath}/cafe/detail.jsp?num=<%= num %>";
 		<% } else { %>
 		alert("수정 실패");
-		location.href="${pageContext.request.contextPath}/cafe/private/updateform.jsp?num=<%= dto.getNum() %>";
+		location.href="${pageContext.request.contextPath}/cafe/private/updateform.jsp?num=${param.num}";
 		<% } %>
 	</script>
 </body>
