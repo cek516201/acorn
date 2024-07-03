@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>/templates/sub/member.html</title>
+</head>
+<body>
+	<div class="container">
+		<h3>회원 한명의 정보</h3>
+		<p>
+			번호 : <strong>[[${dto.num}]]</strong>
+			<br>
+			이름 : <strong th:text="${dto.getName()}"></strong>
+			<br>
+			주소 : <strong th:text="${dto.addr}"></strong>
+		</p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>/templates/sub/buy.html</title>
+</head>
+<body>
+	<div class="container">
+		<h1>구매 결과</h1>
+		<!--/* 파라미터값은 ${param.파라미터명} */-->
+		<p>[[${param.id}]]번 상품 <strong th:text="${param.count}"></strong>개 주문</p>
+	</div>
+</body>
+</html>

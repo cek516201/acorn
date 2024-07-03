@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>/templates/sub/notice.html</title>
+</head>
+<body>
+	<div class="container">
+		<h3>공지사항</h3>
+		<table>
+			<tr>
+				<th>번호</th>
+				<th>이름</th>
+				<th>주소</th>
+			</tr>
+			<tr th:each="member : ${members}">
+				<td>[[${member.getNum()}]]</td>
+				<td>[[${member.name}]]</td>
+				<td th:text="${member.addr}"></td>
+			</tr>
+		</table>
+		
+		<h3>공지사항2</h3>
+		<table>
+			<tr>
+				<th>번호</th>
+				<th>이름</th>
+				<th>주소</th>
+			</tr>
+			<tr th:each="member, status : ${members}">
+				<td>[[${member.getNum()}]]</td>
+				<td>[[${member.name}]]</td>
+				<td th:text="${member.addr}"></td>
+				count : [[${status.count}]]
+				<br>
+				index : [[${status.index}]]
+				<br>
+				size  : [[${status.size}]]
+				<br>
+				even  : [[${status.even}]]
+				<br>
+				odd   : [[${status.odd}]]
+				<br>
+				first : [[${status.first}]]
+				<br>
+				last  : [[${status.last}]]
+				<br>
+				current : [[${status.current}]]
+				<br><br>
+			</tr>
+		</table>
+		<h3>공지사항3</h3>
+		<th:block th:each="member, status : ${members}">
+			<h4>[[${status.count}]]번째 내용</h4>
+			<p>[[${member}]]</p>
+		</th:block>
+	</div>
+</body>
+</html>

@@ -3,12 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <title>templates/home.html</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+<script th:src="@{/js/bootstrap.js}"></script>
 </head>
 <body>
+	<!-- 웹 브라우저가 무시하는 주석 -->
+	<!--/* Thymeleaf가 무시하는 주석 */-->
 	<div class="container">
 		<h1>인덱스</h1>
 		<p>오늘의 인물 : <strong>[[${personToday}]]</strong></p>
 		<p>오늘의 인물 : <strong th:text="${personToday}"></strong></p>
+		<img src="/boot04/images/0.png">
+		<img th:src="@{/images/0.png}">
+		<ul>
+			<li><a href="/boot04/sub/play">play</a></li>
+			<li><a th:href="@{/sub/play}">play2</a></li>
+			<li><a th:href="@{/notice}">공지사항</a></li>
+			<li><a th:href="@{/member}">회원 한명의 정보</a></li>
+			<li><a th:href="@{/members}">회원 목록</a></li>
+			<li><a th:href="@{/shop/buy?id=99&count=3}">99번 상품 3개 구매</a></li>
+			<li><a th:href="@{'/shop/buy?id=' + ${id} + '&count=' + ${count}}">[[${id}]]번 상품 [[${count}]]개 구매</a></li>
+			<!--/* 파이프문자(|)로 감싸면 backtic으로 감싼 효과를 낼 수 있다 */-->
+			<li><a th:href="@{|/shop/buy?id=${id}&count=${count}|}">[[${id}]]번 상품 [[${count}]]개 구매</a></li>
+			<li><a th:href="@{/shop/buy(id=${id}, count=${count})}">[[${id}]]번 상품 [[${count}]]개 구매</a></li>
+			<li><a th:href="@{/inc}">include</a></li>
+			<li><a th:href="@{/unescape}">unescape html</a></li>
+		</ul>
 	</div>
+	<!--/*
+		${} -> 변수 표현식
+		@{} -> url 표현식
+		~{} -> fragment 표현식
+	*/-->
+	<th:block th:insert="~{/include/footer :: myFooter}"></th:block>
+	<script>
+		let myName = "[[${personToday}]]";
+	</script>
 </body>
 </html>
