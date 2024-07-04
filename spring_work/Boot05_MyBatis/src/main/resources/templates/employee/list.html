@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/employee/list.html</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>사원번호</th>
+				<th>이름</th>
+				<th>asd</th>
+				<th>직업</th>
+				<th>매니저</th>
+				<th>고용일</th>
+				<th>봉급</th>
+				<th>직업</th>
+				<th>커미션</th>
+				<th>부서번호</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="elem : ${list}">
+				<td>[[${elem.empno}]]</td>
+				<td>[[${elem.ename}]]</td>
+				<td>[[${elem.name}]]</td>
+				<td>[[${elem.job}]]</td>
+				<td>[[${elem.mgr}]]</td>
+				<td>[[${elem.hiredate}]]</td>
+				<td>[[${elem.sal}]]</td>
+				<td>[[${elem.job}]]</td>
+				<td>[[${elem.comm}]]</td>
+				<td>[[${elem.deptno}]]</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
