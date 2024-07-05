@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/sub/study.html</title>
+</head>
+<body>
+	<div class="container">
+		<h3>공부 페이지</h3>
+		<p>
+			<strong th:text="${session.id}"></strong>님 study
+			<br>
+			<a th:href="@{/}">인덱스로</a>
+		</p>
+	</div>
+</body>
+</html>
