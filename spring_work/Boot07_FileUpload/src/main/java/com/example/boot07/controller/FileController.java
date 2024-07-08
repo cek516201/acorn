@@ -36,6 +36,10 @@ public class FileController {
 		return "file/uploadform";
 	}
 	
+	// spring controller 에서 일어나는 일 
+	// 1. 폼 전송 파라미터로 전달되는 값을 모두 추출
+	// 2. dto를 만들고 set해서 넘겨줌
+	
 	@PostMapping("/file/upload")
 	public String upload(String title, MultipartFile myFile, Model model) {
 		// 원본 파일명

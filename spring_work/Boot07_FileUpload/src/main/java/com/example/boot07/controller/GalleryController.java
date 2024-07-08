@@ -1,13 +1,20 @@
 package com.example.boot07.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -38,6 +45,20 @@ public class GalleryController {
 		}
 		m.addAttribute("saveFileName", saveFileName);
 		return "gallery/upload";
+	}
+	
+	@ResponseBody
+	//@GetMapping("gallery/images/{imageName}")
+	@GetMapping(
+			value = "gallery/images/{imageName}",
+			produces = {MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE}
+	)
+	public byte[] images(@PathVariable("imageName")String name) throws IOException {
+		// imageName 경로 변수에 들어있는 문자열이 매개변수 String name에 전달된다
+		String absolutePath = fileLocation + File.separator + name;
+		InputStream is = new FileInputStream(absolutePath);
+		
+		return IOUtils.toByteArray(is);
 	}
 	
 	/*

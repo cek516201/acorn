@@ -25,6 +25,8 @@
                     <th>번호</th>
                     <th>제목</th>
                     <th>작성자</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -32,11 +34,38 @@
                     <td>{{post.id}}</td>
                     <td>{{post.title}}</td>
                     <td>{{post.author}}</td>
+                    <td><button @click="onUpdate(post.id)">수정</button></td>
                     <td><button @click="onDelete(post.id)">삭제</button></td>
                 </tr>
             </tbody>
         </table>
+
+        <div class="modal fade" id="updateModal" >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5"><strong>{{currentId}}</strong>번 Post 수정 양식</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" ></button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <label class="form-label">제목</label>
+                            <input class="form-control" type="text" v-model="currentTitle">
+                        </div>
+                        <div>
+                            <label class="form-label">작성자</label>
+                            <input class="form-control" type="text" v-model="currentAuthor">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" @click="onSave" data-bs-dismiss="modal">저장</button>
+                        <button class="btn btn-danger" data-bs-dismiss="modal">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <script>
         new Vue({
             el:"#app",
@@ -46,9 +75,44 @@
                 console.log("vue js 준비");
             },
             data:{
-                posts:[]
+                posts:[],
+                currentId:0,
+                currentTitle:"",
+                currentAuthor:""
             },
             methods:{
+                onUpdate(id){
+                    // id에 해당하는 수정할 글의 정보를 서버로부터 응답받는다
+                    // GET  /posts/id
+                    fetch("/posts/" + id).then(res=>res.json())
+                    .then(data => {
+                        this.currentId = id;
+                        this.currentTitle = data.title;
+                        this.currentAuthor = data.author;
+
+                        // 모달 띄우기
+                        const modal = new bootstrap.Modal('#updateModal', {});
+                        modal.show();
+                    });
+                },
+                onSave(){
+                    // 요쳥의 body에 전달할 query 문자열 만들기
+                    const queryString = `title=${this.currentTitle}&author=${this.currentAuthor}`;
+
+                    // PUT  /posts/id
+                    fetch("/posts/" + this.currentId, {
+                        method:"PUT",
+                        headers:{"Content-Type":"application/x-www-form-urlencoded; charset=utf-8"},
+						body:queryString
+                    })
+                    .then(res=>res.json())
+                    .then(data => {
+                        // 응답된 데이터는 수정된 데이터이다
+                        console.log(data);
+
+                        this.getPosts();
+                    });
+                },
                 getPosts(){
                     fetch("/posts").then(res=>res.json())
                     .then(data => {
