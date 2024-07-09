@@ -98,6 +98,8 @@
                 onSave(){
                     // 요쳥의 body에 전달할 query 문자열 만들기
                     const queryString = `title=${this.currentTitle}&author=${this.currentAuthor}`;
+                    console.log("현재 posts 내용");
+                    console.log(this.posts);
 
                     // PUT  /posts/id
                     fetch("/posts/" + this.currentId, {
@@ -109,8 +111,8 @@
                     .then(data => {
                         // 응답된 데이터는 수정된 데이터이다
                         console.log(data);
-
-                        this.getPosts();
+                        //this.getPosts();
+                        this.posts = this.posts.map(item => item.id == data.id ? data : item);
                     });
                 },
                 getPosts(){
