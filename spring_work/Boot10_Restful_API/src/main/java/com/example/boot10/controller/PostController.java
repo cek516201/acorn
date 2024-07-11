@@ -12,37 +12,35 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.boot10.dao.PostDao;
 import com.example.boot10.dto.PostDto;
+import com.example.boot10.service.PostService;
 
 // @Responsebody의 기능이 모든 메소드에 포함된다
 @RestController
 public class PostController {
 	@GetMapping("/posts")
 	public List<PostDto> selectAll() {
-		List<PostDto> list = dao.selectAll();
+		List<PostDto> list = service.selectAll();
 		
 		return list;
 	}
 	
 	@PostMapping("/posts")
 	public PostDto insert(String title, String author) {
-		int id = dao.getSequence();
-		PostDto dto = PostDto.builder().id(id).title(title).author(author).build();
-		
-		dao.insert(dto);
-		
+		PostDto dto = service.insert(title, author);
+
 		return dto;
 	}
 	
 	@DeleteMapping("/posts/{id}")
 	public String delete(@PathVariable("id") int id) {
-		dao.delete(id);
+		service.delete(id);
 		
 		return "{}";
 	}
 	
 	@GetMapping("/posts/{id}")
 	public PostDto select(@PathVariable("id") int id) {
-		PostDto dto = dao.select(id);
+		PostDto dto = service.select(id);
 		
 		return dto;
 	}
@@ -50,11 +48,11 @@ public class PostController {
 	@PutMapping("/posts/{id}")
 	public PostDto update(@PathVariable("id") int id, String title, String author) {
 		PostDto dto = PostDto.builder().id(id).title(title).author(author).build();
-		dao.update(dto);
+		service.update(dto);
 		
 		return dto;
 	}
 	
 	@Autowired
-	private PostDao dao;
+	private PostService service;
 }
