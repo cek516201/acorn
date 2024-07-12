@@ -8,11 +8,12 @@
 <body>
 	<div class="container" id="app">
 		<h1>비밀 번호 수정 페이지</h1>
+		<p th:if="${exception}" class="alert alert-danger">[[${exception.message}]]</p>
 		<form th:action="@{/user/pwd_update}" method="post" id="myForm">
 			<div class="mb-2">
 				<label class="form-label" for="pwd">기존 비밀번호</label>
-				<input class="form-control" 
-					@input="onPwdInput" 
+				<input class="form-control"
+					@input="onPwdInput"
 					v-bind:class="{'is-invalid': !isPwdValid && isPwdDirty, 'is-valid':isPwdValid}" type="password" name="password" id="pwd"/>
 				<div class="invalid-feedback">반드시 입력하세요</div>
 			</div>

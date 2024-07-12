@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.boot11.dao.UserDao;
 import com.example.boot11.dto.UserDto;
-import com.example.boot11.repository.UserDao;
 
 // bean 으로 만들기 위한 어노테이션 
 @Service

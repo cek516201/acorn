@@ -1,12 +1,10 @@
 package com.example.boot11.service;
 
-import org.springframework.ui.Model;
-
 import com.example.boot11.dto.UserDto;
 
 public interface UserService {
-	public void getInfo(Model model);
+	public UserDto getInfo();
 	public void addUser(UserDto dto);
-	public void updateUser(UserDto dto);
-	public void updatePassword(UserDto dto);
+	public void updatePwd(UserDto dto);
+	public void update(UserDto dto);
 }

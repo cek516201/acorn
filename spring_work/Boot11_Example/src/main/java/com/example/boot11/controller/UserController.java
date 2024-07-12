@@ -28,7 +28,8 @@ public class UserController {
 	
 	@GetMapping("/user/info")
 	public String info(Model model) {
-		service.getInfo(model);
+		UserDto dto = service.getInfo();
+		model.addAttribute("dto", dto);
 		
 		return "user/info";
 	}
@@ -52,9 +53,9 @@ public class UserController {
 		return "user/loginform";
 	}
 	
-	@GetMapping("/user/pwd_update")
+	@PostMapping("/user/pwd_update")
 	public String pwdUpdate(UserDto dto, HttpSession session) {
-		service.updatePassword(dto);
+		service.updatePwd(dto);
 		session.invalidate();
 		
 		return "user/pwd_update";
@@ -81,6 +82,21 @@ public class UserController {
 		service.addUser(dto);
 		
 		return "user/signup";
+	}
+	
+	@GetMapping("/user/updateform")
+	public String updateForm(Model model) {
+		UserDto dto = service.getInfo();
+		model.addAttribute("dto", dto);
+		
+		return "user/updateform";
+	}
+	
+	@PostMapping("/user/update")
+	public String update(UserDto dto) {
+		service.update(dto);
+		
+		return "redirect:/user/info";
 	}
 	
 	@Autowired

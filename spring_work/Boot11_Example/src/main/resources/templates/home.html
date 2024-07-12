@@ -17,6 +17,10 @@
 			<a th:href="@{/user/loginform}">로그인</a>
 		</div>
 		<h1>인덱스</h1>
+		<ul>
+			<li><a th:href="@{/file/list}">자료실 목록보기</a></li>
+		</ul>
+		
 		<h3>공지사항</h3>
 		<ul>
 			<li th:each="elem : ${notice}">[[${elem}]]</li>

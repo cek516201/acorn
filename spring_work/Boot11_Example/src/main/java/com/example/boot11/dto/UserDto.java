@@ -1,5 +1,7 @@
 package com.example.boot11.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class UserDto {
 	// 숫자로된 아이디는 PK
-	private int id;
+	private long id;
 	// 사용자 명은 중복데이터가 들어가지 않도록 UNIQUE KEY를 설정해야한다
 	private String userName;
 	private String password;
@@ -21,4 +23,6 @@ public class UserDto {
 	private String role;
 	private String profile;
 	private String regdate;
+	// 프로필 이미지 파일 업로드 처리를 하기위한 필드
+	private MultipartFile image;
 }

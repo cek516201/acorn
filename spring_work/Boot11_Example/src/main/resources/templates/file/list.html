@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>template/file/list.html</title>
+<style>
+	table, tr{
+	  border: 1px solid black;
+	  border-collapse: collapse;
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h3>자료실</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>작성자</th>
+					<th>제목</th>
+					<th>파일</th>
+					<th>업로드일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto : ${list}">
+					<td>[[${dto.num}]]</td>
+					<td>[[${dto.writer}]]</td>
+					<td>[[${dto.title}]]</td>
+					<td><a th:href="@{/file/download(num=${dto.num}, orgFileName=${dto.orgFileName}, saveFileName=${dto.saveFileName}, fileSize=${dto.fileSize})}">[[${dto.orgFileName}]]</a></td>
+					<td>[[${dto.regdate}]]</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

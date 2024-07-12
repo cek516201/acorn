@@ -1,4 +1,4 @@
-package com.example.boot11.repository;
+package com.example.boot11.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,11 @@ public class UserDaoImpl implements UserDao {
 		session.insert("user.insert", dto);
 	}
 
+	@Override
+	public void updatePwd(UserDto dto) {
+		session.update("user.updatePwd", dto);
+	}
+	
 	@Override
 	public void update(UserDto dto) {
 		session.update("user.update", dto);

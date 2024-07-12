@@ -13,9 +13,15 @@
 		VALUES(user_table_seq.NEXTVAL, #{userName}, #{password}, #{email}, #{role}, SYSDATE)
 	</insert>
 	
-	<update id="update" parameterType="com.example.boot11.dto.UserDto">
+	<update id="updatePwd" parameterType="com.example.boot11.dto.UserDto">
 		UPDATE user_table
 		SET password=#{newPassword}
+		WHERE userName=#{userName}
+	</update>
+	
+	<update id="update" parameterType="com.example.boot11.dto.UserDto">
+		UPDATE user_table
+		SET email=#{email} <if test="profile != null">, profile=#{profile}</if>
 		WHERE userName=#{userName}
 	</update>
 </mapper>
