@@ -18,7 +18,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		String[] whiteList = { "/", "/user/loginform", "/user/login_fail", "/user/expired",
 				"/user/signup_form", "/user/signup", "/error", "/upload/images/*",
-				"/file/list"};
+				"/file/list", "/file/download"};
 
 		httpSecurity
 		.csrf(csrf -> csrf.disable())

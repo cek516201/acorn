@@ -11,10 +11,34 @@ import com.example.boot11.dto.FileDto;
 @Repository
 public class FileDaoImpl implements FileDao {
 	@Override
-	public List<FileDto> selectAll() {
-		List<FileDto> list = session.selectList("file.selectAll");
+	public List<FileDto> getList() {
+		List<FileDto> list = session.selectList("file.getList");
 		
 		return list;
+	}
+	
+	@Override
+	public void delete(int num) {
+		session.delete("file.delete", num);
+	}
+
+	@Override
+	public void insert(FileDto dto) {
+		session.insert("file.insert", dto);
+	}
+	
+	@Override
+	public FileDto select(int num) {
+		FileDto dto = session.selectOne("file.select", num);
+		
+		return dto;
+	}
+	
+	@Override
+	public int getCount() {
+		int count = session.selectOne("file.getCount");
+		
+		return count;
 	}
 	
 	@Autowired

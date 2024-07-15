@@ -1,5 +1,6 @@
 package com.example.boot11.exception;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -29,5 +30,12 @@ public class ExceptionController{
 		ra.addFlashAttribute("exception", pe); // 리다이렉트로 이동된 후 한번만 사용 가능
 		
 		return "redirect:/user/pwd_updateform";
+	}
+	
+	@ExceptionHandler(NotOwnerException.class)
+	public String notOwnerException(NotOwnerException noe, Model model) {
+		model.addAttribute("exception", noe);
+		
+		return "error/info";
 	}
 }

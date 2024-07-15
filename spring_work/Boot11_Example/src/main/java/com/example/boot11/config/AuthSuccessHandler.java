@@ -3,6 +3,7 @@ package com.example.boot11.config;
 import java.io.IOException;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
@@ -30,6 +31,9 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
 		//세션 유지 시간 설정
     	HttpSession session=request.getSession();
         session.setMaxInactiveInterval(60 * 10); // 초 단위로 설정
+        
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		session.setAttribute("userName", userName);
 		
 		//3. 로그인 성공이후 미리 저장된 요청이 있었는지 읽어와서
     	SavedRequest cashed=requestCache.getRequest(request, response);
