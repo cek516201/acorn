@@ -25,8 +25,12 @@ public class FileDto {
 	private long fileSize;
 	private String regdate;
 	//페이징 처리를 위한 필드
+	private int pageNum = 1;
 	private int startRowNum;
 	private int endRowNum;
 	//파일 업로드 처리를 하기 위한 필드
 	private MultipartFile file;
+	// 검색 키워드 관련
+	private String condition = ""; // 검색조건이 없는경우 null이 출력되는걸 방지하기 위해
+	private String keyword = "";
 }

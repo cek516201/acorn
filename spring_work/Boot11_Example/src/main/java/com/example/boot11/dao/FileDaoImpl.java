@@ -11,8 +11,8 @@ import com.example.boot11.dto.FileDto;
 @Repository
 public class FileDaoImpl implements FileDao {
 	@Override
-	public List<FileDto> getList() {
-		List<FileDto> list = session.selectList("file.getList");
+	public List<FileDto> getList(FileDto dto) {
+		List<FileDto> list = session.selectList("file.getList", dto);
 		
 		return list;
 	}
@@ -35,8 +35,8 @@ public class FileDaoImpl implements FileDao {
 	}
 	
 	@Override
-	public int getCount() {
-		int count = session.selectOne("file.getCount");
+	public int getCount(FileDto dto) {
+		int count = session.selectOne("file.getCount", dto);
 		
 		return count;
 	}

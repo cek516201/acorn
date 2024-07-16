@@ -1,7 +1,5 @@
 package com.example.boot11.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
@@ -20,8 +18,8 @@ import com.example.boot11.service.FileService;
 @Controller
 public class FileController {
 	@GetMapping("/file/list")
-	public String list(Model model) {
-		List<FileDto> list = service.getList(model);
+	public String list(Model model, FileDto dto) {
+		service.getList(model, dto);
 		
 		return "file/list";
 	}
