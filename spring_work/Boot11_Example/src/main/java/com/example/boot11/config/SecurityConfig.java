@@ -18,9 +18,13 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		String[] whiteList = { "/", "/user/loginform", "/user/login_fail", "/user/expired",
 				"/user/signup_form", "/user/signup", "/error", "/upload/images/*",
-				"/file/list", "/file/download"};
+				"/file/list", "/file/download", "/cafe/list", "/cafe/detail", "/editor/images/*"};
 
 		httpSecurity
+		.headers(header->
+			// 동일한 origin에서 iframe을 사용할 수 있도록 설정
+			header.frameOptions(option->option.sameOrigin()) // SmartEditor에서 필요함
+		)
 		.csrf(csrf -> csrf.disable())
 		.authorizeHttpRequests(config ->
 			config

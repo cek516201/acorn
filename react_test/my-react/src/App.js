@@ -3,7 +3,11 @@ import React, { Component } from 'react';
 class App extends Component {
   // 상태값 정의하기(java클래스 안에서 필드를 정의하는 느낌으로 만들면 된다)
   state = {
-    count: 0
+    count : 0
+  }
+
+  clicked = ()=>{
+    this.setState({count : this.state.count + 1})
   }
 
   // App 클래스 안에 속해있는 멤버 함수
@@ -13,10 +17,11 @@ class App extends Component {
       <div>
         <h1>인덱스</h1>
         <button onClick={() => {
-          const newObj = { count: this.state.count + 1 }
+          const newObj = { count : this.state.count + 1 }
 
           this.setState(newObj);
         }}>{this.state.count}</button>
+        <button onClick={this.clicked}>{this.state.count}</button>
       </div>
     );
   }
