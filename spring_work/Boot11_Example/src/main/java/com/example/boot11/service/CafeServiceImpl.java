@@ -8,8 +8,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.example.boot11.dao.CafeCommentDao;
 import com.example.boot11.dao.CafeDao;
+import com.example.boot11.dto.CafeCommentDto;
 import com.example.boot11.dto.CafeDto;
+import com.example.boot11.exception.NotOwnerException;
 
 @Service
 public class CafeServiceImpl implements CafeService {
@@ -70,20 +73,52 @@ public class CafeServiceImpl implements CafeService {
 
 	@Override
 	public void deleteContent(int num) {
+		String writer = cafeDao.getData(num).getWriter();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(!writer.equals(userName)) {
+			throw new NotOwnerException("작성자와 일치하지 않습니다");
+		}
+		
 		cafeDao.delete(num);
 	}
 
 	@Override
 	public void getData(Model model, int num) {
 		CafeDto dto = cafeDao.getData(num);
-		model.addAttribute("num", num);
-		model.addAttribute("title", dto.getTitle());
-		model.addAttribute("content", dto.getContent());
+		model.addAttribute("dto", dto);
 	}
 
 	@Override
 	public void updateContent(CafeDto dto) {
+		String writer = cafeDao.getData(dto.getNum()).getWriter();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(!writer.equals(userName)) {
+			throw new NotOwnerException("작성자와 일치하지 않습니다");
+		}
+		
 		cafeDao.update(dto);
+	}
+	
+	
+	
+	@Override
+	public void saveComment(CafeCommentDto dto) {
+		
+	}
+
+	@Override
+	public void deleteComment(int num) {
+		
+	}
+
+	@Override
+	public void updateComment(CafeCommentDto dto) {
+		
+	}
+
+	@Override
+	public void getCommentList(Model model, CafeCommentDto dto) {
+		
 	}
 	
 	//한 페이지에 글을 몇개씩 표시할 것인지
@@ -92,4 +127,6 @@ public class CafeServiceImpl implements CafeService {
 	final int PAGE_DISPLAY_COUNT=2;
 	@Autowired
 	private CafeDao cafeDao;
+	@Autowired
+	private CafeCommentDao commentDao;
 }

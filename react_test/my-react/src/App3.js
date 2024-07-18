@@ -1,43 +1,42 @@
 import React, { Component } from 'react';
+import Child from './components/Child';
+import Fortune from './components/Fortune';
+import List from './components/List';
+
 
 class App3 extends Component {
     state = {
-        names: ["ㅁㅁㅁ", "ㄴㄴㄴ", "ㅇㅇㅇ"],
-        inputName: ""
+        fortuneToday: "비가 많이 올거에요",
+        names: ["ㅁㅁㅁ", "ㄴㄴㄴ", "ㅇㅇㅇ"]
     }
 
-    getData = () => {
-        const data = ["ㅂㅂㅂ", "ㅈㅈㅈ", "ㄷㄷㄷ"]
+    clicked = () => {
         this.setState({
-            names: data
-        })
-    }
-
-    addItem = () => {
-        const newArr = this.state.names.concat(this.state.inputName);
-        const newArr2 = [...this.state.names, this.state.inputName]
-        this.setState({
-            names : newArr2
+            fortuneToday: "비가 그칠거에요"
         })
     }
 
     render() {
         return (
             <div>
-                <h3>배열을 상태값으로 가지는 예제</h3>
-                <p>{this.state.names}</p>
-                <button onClick={this.getData}>목록 받아오기</button>
-                <br/>
-                <input type="text" placeholder='이름 입력' onChange={(e) => {
-                    this.setState({
-                        inputName : e.target.value
+                <h1>인덱스</h1>
+                <Child />
+                <button onClick={this.clicked}>운세 변경</button>
+                <Fortune data={'ㅁㅁㅁ'} />
+                <Fortune data={this.state.fortuneToday} />
+                <List names={this.state.names} onDelete={(idx) => {
+                    const newArr = this.state.names.filter((item, index) => {
+                        // if (idx === index)
+                        //     return false; // 포함시키지 않음
+                        // else
+                        //     return true; // 포함시킴
+                        return idx !== index;
                     })
-                }}/>
-                <button onClick={this.addItem}>추가</button>
-                <ul>
-                    {this.state.names.map(item => <li>{item}</li>)}
-                </ul>
-                {this.state.names.map(item=><li>{item}</li>)}
+                    const newArr2 = this.state.names.filter((item, index) => idx !== index)
+                    this.setState({
+                        names: newArr
+                    })
+                }} />
             </div>
         );
     }

@@ -8,14 +8,18 @@
 <body>
 	<div class="container">
 		<h1>글 수정 양식</h1>
-		<form th:action="@{/cafe/update(num=${num})}" method="post">
+		<form th:action="@{/cafe/update}" method="post">
+			<div class="mb-2">
+				<label class="form-label" for="num">번호</label>
+				<input class="form-control" type="text" id="num" name="num" th:value="${dto.num}" readonly/>
+			</div>
 			<div class="mb-2">
 				<label class="form-label" for="title">제목</label>
-				<input class="form-control" type="text" name="title" id="title" th:value="${title}"/>
+				<input class="form-control" type="text" name="title" id="title" th:value="${dto.title}"/>
 			</div>
 			<div class="mb-2">
 				<label class="form-label" for="content">내용</label>
-				<textarea class="form-control" name="content" id="content"  rows="10">[[${content}]]</textarea>
+				<textarea class="form-control" name="content" id="content"  rows="10">[[${dto.content}]]</textarea>
 			</div>
 			<button onclick="submitContents(this)" class="btn btn-success" type="submit">저장</button>
 		</form>

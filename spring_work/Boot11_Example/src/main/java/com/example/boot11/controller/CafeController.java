@@ -58,8 +58,6 @@ public class CafeController {
 		return "redirect:/cafe/list";
 	}
 	
-
-	
 	@Autowired
 	private CafeService service;
 }
