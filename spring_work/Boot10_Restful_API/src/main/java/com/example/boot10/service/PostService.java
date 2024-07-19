@@ -6,8 +6,8 @@ import com.example.boot10.dto.PostDto;
 
 public interface PostService {
 	public List<PostDto> selectAll();
-	public PostDto insert(String title, String author);
+	public PostDto insert(PostDto dto);
 	public void delete(int id);
 	public PostDto select(int id);
-	public void update(PostDto dto);
+	public void update(int id, PostDto dto);
 }

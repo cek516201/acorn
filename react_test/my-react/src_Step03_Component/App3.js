@@ -32,7 +32,7 @@ class App3 extends Component {
                         //     return true; // 포함시킴
                         return idx !== index;
                     })
-                    const newArr2 = this.state.names.filter((item, index) => idx !== index)
+                     // const newArr2 = this.state.names.filter((item, index) => idx !== index)
                     this.setState({
                         names: newArr
                     })

@@ -4,10 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import com.example.boot11.dto.CafeCommentDto;
 import com.example.boot11.dto.CafeDto;
 import com.example.boot11.service.CafeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 public class CafeController {
@@ -26,7 +30,7 @@ public class CafeController {
 	}
 	
 	@GetMapping("/cafe/insertform")
-	public String list() {
+	public String insertform() {
 		return "cafe/insertform";
 	}
 	
@@ -57,6 +61,15 @@ public class CafeController {
 		
 		return "redirect:/cafe/list";
 	}
+	
+	// ref_group, target_id, content의 정보가 들어있다(대댓글의 경우에는 comment_group 번호도 들어있다)
+	@PostMapping("/cafe/comment_insert")
+	public String commentInsert(CafeCommentDto dto) {
+		service.saveComment(dto);
+		
+		return "redirect:/cafe/detail?num=" + dto.getRef_group();
+	}
+	
 	
 	@Autowired
 	private CafeService service;

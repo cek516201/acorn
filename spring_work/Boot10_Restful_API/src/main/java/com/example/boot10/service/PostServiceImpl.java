@@ -25,9 +25,9 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public PostDto insert(String title, String author) {
+	public PostDto insert(PostDto dto) {
 		int id = dao.getSequence();
-		PostDto dto = PostDto.builder().id(id).title(title).author(author).build();
+		dto.setId(id);
 		
 		dao.insert(dto);
 		
@@ -47,7 +47,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void update(PostDto dto) {
+	public void update(int id, PostDto dto) {
+		dto.setId(id);
 		dao.update(dto);
 	}
 	

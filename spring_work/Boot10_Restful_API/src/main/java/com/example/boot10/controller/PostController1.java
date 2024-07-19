@@ -8,15 +8,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.boot10.dao.PostDao;
 import com.example.boot10.dto.PostDto;
 import com.example.boot10.service.PostService;
 
 // @Responsebody의 기능이 모든 메소드에 포함된다
 @RestController
-public class PostController {
+@RequestMapping("/v1")
+public class PostController1 {
 	@GetMapping("/posts")
 	public List<PostDto> selectAll() {
 		List<PostDto> list = service.selectAll();
@@ -25,10 +26,10 @@ public class PostController {
 	}
 	
 	@PostMapping("/posts")
-	public PostDto insert(String title, String author) {
-		PostDto dto = service.insert(title, author);
+	public PostDto insert(PostDto dto) {
+		PostDto postDto = service.insert(dto);
 
-		return dto;
+		return postDto;
 	}
 	
 	@DeleteMapping("/posts/{id}")
@@ -46,9 +47,8 @@ public class PostController {
 	}
 	
 	@PutMapping("/posts/{id}")
-	public PostDto update(@PathVariable("id") int id, String title, String author) {
-		PostDto dto = PostDto.builder().id(id).title(title).author(author).build();
-		service.update(dto);
+	public PostDto update(@PathVariable("id") int id, PostDto dto) {
+		service.update(id, dto);
 		
 		return dto;
 	}

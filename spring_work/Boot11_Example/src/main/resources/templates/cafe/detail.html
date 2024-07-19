@@ -100,6 +100,22 @@
 				}
 			});
 		</script>
+		
+		<!-- 댓글 목록 -->
+		<div class="comments">
+			<ul>
+				<li th:each="tmp : ${commentList}">
+					<dl>
+						<dt>
+							<span>[[${tmp.writer}]]</span>
+						</dt>
+						<dd>
+							<pre>[[${tmp.content}]]</pre>
+						</dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

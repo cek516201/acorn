@@ -12,9 +12,9 @@ import com.example.boot11.dto.CafeCommentDto;
 public class CafeCommentDaoImpl implements CafeCommentDao {
 	@Override
 	public int getSequence() {
-		int sequence = session.selectOne("cafeComment.getSequence");
+		int num = session.selectOne("cafeComment.getSequence");
 		
-		return sequence;
+		return num;
 	}
 
 	@Override
