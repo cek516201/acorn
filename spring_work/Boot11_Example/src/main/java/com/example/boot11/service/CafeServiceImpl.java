@@ -82,7 +82,7 @@ public class CafeServiceImpl implements CafeService {
 			[ 댓글 페이징 처리에 관련된 로직 ]
 		*/
 		//한 페이지에 댓글을 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT=2;
+		final int PAGE_ROW_COUNT=3;
 	
 		//보여줄 페이지의 시작 ROWNUM
 		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
@@ -151,17 +151,52 @@ public class CafeServiceImpl implements CafeService {
 
 	@Override
 	public void deleteComment(int num) {
+		String writer = commentDao.getData(num).getWriter();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(!writer.equals(userName)) {
+			throw new NotOwnerException("작성자와 일치하지 않습니다");
+		}
 		
+		commentDao.delete(num);
 	}
 
 	@Override
 	public void updateComment(CafeCommentDto dto) {
+		String writer = commentDao.getData(dto.getNum()).getWriter();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(!writer.equals(userName)) {
+			throw new NotOwnerException("작성자와 일치하지 않습니다");
+		}
 		
+		commentDao.update(dto);
 	}
 
 	@Override
 	public void getCommentList(Model model, CafeCommentDto dto) {
+		// 요청된 댓글의 페이지번호
+		int pageNum = dto.getPageNum();
 		
+		/*
+		[ 댓글 페이징 처리에 관련된 로직 ]
+		*/
+		//한 페이지에 댓글을 몇개씩 표시할 것인지
+		final int PAGE_ROW_COUNT=3;
+		
+		//보여줄 페이지의 시작 ROWNUM
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		//보여줄 페이지의 끝 ROWNUM
+		int endRowNum=pageNum*PAGE_ROW_COUNT;
+		//계산된 값을 dto 에 담는다
+		dto.setStartRowNum(startRowNum);
+		dto.setEndRowNum(endRowNum);
+		
+		//pageNum에 해당하는 댓글 목록만 select 되도록 한다. 
+		List<CafeCommentDto> commentList=commentDao.getList(dto);
+		
+		//응답에 필요한 데이터를 Model 객체에 담는다.
+		model.addAttribute("commentList", commentList); //댓글 목록
+		model.addAttribute("pageNum", pageNum);  //페이지번호 
+		model.addAttribute("ref_group", dto.getRef_group()); //원글의 글번호
 	}
 	
 	//한 페이지에 글을 몇개씩 표시할 것인지
