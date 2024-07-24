@@ -8,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.boot04.dto.MemberDto;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 public class TestController {

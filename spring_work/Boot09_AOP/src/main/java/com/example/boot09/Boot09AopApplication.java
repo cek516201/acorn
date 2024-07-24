@@ -3,7 +3,6 @@ package com.example.boot09;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 
 import com.example.boot09.util.Messenger;
 import com.example.boot09.util.WritingUtil;

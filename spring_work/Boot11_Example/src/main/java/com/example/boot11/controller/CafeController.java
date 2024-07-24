@@ -12,11 +12,7 @@ import com.example.boot11.dto.CafeDto;
 import com.example.boot11.service.CafeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
 
 @Controller
 public class CafeController {
