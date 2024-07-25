@@ -1,36 +1,33 @@
-
-import { Component } from 'react';
+// App.css 적용하기 (내부 css)
+import { useState } from 'react';
 import './App.css'
-import { NavLink, Route, Routes } from 'react-router-dom';
-import "bootstrap/dist/css/bootstrap.css"
-import { Home, NotFound, Play, Post, Study } from './pages';
 
-//클래스형 component
-class App extends Component{
+//함수형 component
+function App() {
+  console.log("App 함수가 호출됨!")
+  /*
+    - useState() 함수는 배열을 리턴한다
+    - [ 상태값 , 상태값을 바꿀 함수 ] 구조이다
+    - useState(상태의 초기값)
+  */
+  const [count, setCount] = useState(0)
+  const [myName, setMyName] = useState("ㅁㅁㅁ")
 
- 
-  render(){
+  return (
+    <div className="container">
+      <h1>인덱스 페이지 입니다</h1>
+      
+      <button onClick={()=>{
+        setCount(count+1)
+      }}>{count}</button>
 
-    return (
-      <div className="container">
-        <h1>React Router 를 이용한 SPA 테스트</h1>
-        <p>Single Page Application</p>
-        <ul className='nav nav-pills'>
-          <li className='nav-item'><NavLink className='nav-link' to="/">Home</NavLink></li>
-          <li className='nav-item'><NavLink className='nav-link' to="/play">Play</NavLink></li>
-          <li className='nav-item'><NavLink className='nav-link' to="/study">Study</NavLink></li>
-          <li className='nav-item'><NavLink className='nav-link' to="/post">Post</NavLink></li>
-        </ul>
-        <Routes>
-          <Route path="/" Component={Home}/>
-          <Route path="/play" Component={Play}/>
-          <Route path="/study/*" Component={Study}/>
-          <Route path="/post" Component={Post}/>
-          <Route path="/*" Component={NotFound}/>
-        </Routes>
-      </div>
-    )
-  }
+      <p>내 이름은 <strong>{myName}</strong></p>
+      <button onClick={()=>{
+        setMyName("ㄴㄴㄴ")
+      }}>이름 변경</button>
+    </div>
+  );
 }
 
+//외부에서 App.js 를 import 하면 App 함수를 사용할수 있다. (src/index.js)
 export default App;

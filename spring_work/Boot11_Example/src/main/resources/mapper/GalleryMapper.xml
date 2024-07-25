@@ -1,15 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gallery">
+	<sql id="column">
+		num, writer, caption, saveFileName, regdate
+	</sql>
+	
+	<sql id="whereCondition">
+		<choose>
+			<when test="condition == 'caption'">
+				WHERE caption LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="condition == 'writer'">
+				WHERE writer LIKE '%' || #{keyword} || '%'
+			</when>
+		</choose>
+	</sql>
+	
+	
+
 	<insert id="insert" parameterType="com.example.boot11.dto.GalleryDto">
 		INSERT INTO board_gallery
-		(num, writer, caption, saveFileName, regdate)
+		(<include refid="column"/>)
 		VALUES(board_gallery_seq.nextval, #{writer}, #{caption}, #{saveFileName}, sysdate)
 	</insert>
 	
-	<select id="getList" resultType="com.example.boot11.dto.GalleryDto">
-		SELECT num, writer, caption, saveFileName, regdate
+	<select id="getList" parameterType="com.example.boot11.dto.GalleryDto" resultType="com.example.boot11.dto.GalleryDto">
+		SELECT <include refid="column"/>
 		FROM board_gallery
+		<include refid="whereCondition"/>
 		ORDER BY num desc
+	</select>
+	
+	<select id="getDto" parameterType="int" resultType="com.example.boot11.dto.GalleryDto">
+		SELECT <include refid="column"/>
+		FROM board_gallery
+		WHERE num=#{int}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM board_gallery
+		WHERE num=#{int}
+	</delete>
+	
+	<select id="getDetail" parameterType="com.example.boot11.dto.GalleryDto" resultType="com.example.boot11.dto.GalleryDto">
+		SELECT result.*
+		FROM
+			(SELECT <include refid="column"/>, 
+				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum,
+				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum
+			FROM board_gallery
+			<include refid="whereCondition"/>) result
+		WHERE num=#{num}
 	</select>
 </mapper>

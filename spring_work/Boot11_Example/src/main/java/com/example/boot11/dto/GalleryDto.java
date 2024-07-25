@@ -15,4 +15,10 @@ public class GalleryDto {
 	private String caption;
 	private String saveFileName;
 	private String regdate;
+	
+	private int prevNum, nextNum;
+	
+	private String condition = "", keyword = ""; 
+
+	private int startRowNum, endRowNum, pageNum = 1;
 }

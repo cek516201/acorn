@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.boot11.dao.GalleryDao;
@@ -47,8 +48,13 @@ public class GalleryServiceImpl implements GalleryService{
 	}
 	
 	@Override
-	public List<GalleryDto> getList() {
-		List<GalleryDto> list = dao.getList();
+	public List<GalleryDto> getList(Model model, GalleryDto dto) {
+		List<GalleryDto> list = dao.getList(dto);
+		model.addAttribute("list", list);
+		
+		
+		
+		model.addAttribute("dto", dto);
 		
 		return list;
 	}
@@ -64,13 +70,28 @@ public class GalleryServiceImpl implements GalleryService{
 	
 	@Override
 	public void delete(int num) {
-		String writer = dao.getData(num).getWriter();
+		GalleryDto dto = dao.getDto(num);
+		
+		String writer = dto.getWriter();
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(!writer.equals(userName)) {
 			throw new NotOwnerException("작성자와 일치하지 않습니다");
 		}
 		
+		// 파일 시스템에서 실제로 삭제
+		String saveFileName = dto.getSaveFileName();
+		String filePath = fileLocation + File.separator + saveFileName;
+		File file = new File(filePath);
+		file.delete();
+		
 		dao.delete(num);
+	}
+	
+	@Override
+	public void detail(GalleryDto dto, Model model) {
+		GalleryDto detailDto = dao.getDetail(dto);
+		model.addAttribute("detailDto", detailDto);
+		model.addAttribute("dto", dto);
 	}
 	
 	@Autowired

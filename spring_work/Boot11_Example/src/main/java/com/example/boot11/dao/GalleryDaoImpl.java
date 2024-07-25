@@ -16,10 +16,29 @@ public class GalleryDaoImpl implements GalleryDao{
 	}
 	
 	@Override
-	public List<GalleryDto> getList() {
-		List<GalleryDto> list = session.selectList("gallery.getList");
+	public List<GalleryDto> getList(GalleryDto dto) {
+		List<GalleryDto> list = session.selectList("gallery.getList", dto);
 		
 		return list;
+	}
+	
+	@Override
+	public GalleryDto getDto(int num) {
+		GalleryDto dto = session.selectOne("gallery.getDto", num);
+		
+		return dto;
+	}
+	
+	@Override
+	public void delete(int num) {
+		session.delete("gallery.delete", num);
+	}
+	
+	@Override
+	public GalleryDto getDetail(GalleryDto dto) {
+		GalleryDto detailDto = session.selectOne("gallery.getDetail", dto);
+		
+		return detailDto;
 	}
 	
 	@Autowired

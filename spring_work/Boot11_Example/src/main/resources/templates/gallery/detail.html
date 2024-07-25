@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/gallery/detail.html</title>
+</head>
+<body>
+	<a th:if="${detailDto.prevNum != 0}" th:href="@{/gallery/detail(num=${detailDto.prevNum}, condition=${dto.condition}, keyword=${dto.keyword})}">이전글</a> 
+	<a th:if="${detailDto.nextNum != 0}" th:href="@{/gallery/detail(num=${detailDto.NextNum}, condition=${dto.condition}, keyword=${dto.keyword})}">다음글</a>
+	<br>
+	<img th:src="@{'/gallery/images/' + ${detailDto.saveFileName}}"/>
+	<br>
+	<p>설명 : [[${detailDto.caption}]]</p>
+	<p>작성자 : [[${detailDto.writer}]]</p>
+	<p>업로드일 : [[${detailDto.regdate}]]</p>
+	<a th:if="${detailDto.writer == session.userName}" th:href="@{/gallery/delete(num=${detailDto.num})}">삭제</a>
+</body>
+</html>

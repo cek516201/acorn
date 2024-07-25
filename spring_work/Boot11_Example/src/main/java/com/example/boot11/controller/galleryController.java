@@ -30,9 +30,8 @@ public class galleryController {
 	}
 	
 	@GetMapping("/gallery/list")
-	public String getMethodName(Model model) {
-		List<GalleryDto> list = service.getList();
-		model.addAttribute("list", list);
+	public String list(Model model, GalleryDto dto) {
+		List<GalleryDto> list = service.getList(model, dto);
 		
 		return "gallery/list";
 	}
@@ -49,12 +48,18 @@ public class galleryController {
 		return bytes;
 	}
 	
-	@ResponseBody
 	@GetMapping("/gallery/delete")
 	public String delete(int num) {
 		service.delete(num);
 		
-		return "delete " + num;
+		return "redirect:/gallery/list";
+	}
+	
+	@GetMapping("/gallery/detail")
+	public String detail(GalleryDto dto, Model model) {
+		service.detail(dto, model);
+		
+		return "gallery/detail";
 	}
 	
 	@Autowired

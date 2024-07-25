@@ -13,20 +13,30 @@
         <a th:href="@{/gallery/uploadform}">이미지 업로드</a>
         
         <div class="row">
-            <div th:each="dto : ${list}" class="col-sm-6 col-md-4 col-lg-3">
+            <div th:each="tmp : ${list}" class="col-sm-6 col-md-4 col-lg-3">
                 <div class="card mb-3">
-                    <a th:href="@{'/gallery/images/' + ${dto.saveFileName}}">
-                        <img class="card-img-top" th:src="@{'/gallery/images/' + ${dto.saveFileName}}" >
+                    <a th:href="@{/gallery/detail(num=${tmp.num}, condition=${dto.condition}, keyword=${dto.keyword})}">
+                        <img class="card-img-top" th:src="@{'/gallery/images/' + ${tmp.saveFileName}}" >
                     </a>
-                    <a th:if="${dto.writer == session.userName}" class="btn btn-danger" th:href="@{/gallery/delete(num=${dto.num})}">삭제</a>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">[[${dto.caption}]]</p>
-                    <p class="card-text">[[${dto.writer}]]</strong></p>
-                    <p><small>[[${dto.regdate}]]</small></p>
+                    <p class="card-text">[[${tmp.caption}]]</p>
+                    <p class="card-text">[[${tmp.writer}]]</strong></p>
+                    <p><small>[[${tmp.regdate}]]</small></p>
                 </div>
             </div>
         </div>
+        
+		<form th:action="@{/gallery/list}" method="get">
+        	<label for="condition">검색조건</label>
+        	<select name="condition" id="condition">
+        		<option value="caption" th:selected="${dto.condition == 'caption'}">설명</option>
+        		<option value="writer" th:selected="${dto.condition == 'writer'}">작성자</option>
+        	</select>
+        	<br>
+        	<input type="text" name="keyword" placeholder="검색어 입력" th:value="${dto.keyword}"/>
+        	<button type="submit">검색</button>
+        </form>
     </div>
 </body>
 </html>
