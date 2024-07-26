@@ -10,8 +10,8 @@ import com.example.boot11.dto.GalleryDto;
 
 public interface GalleryService {
 	void upload(MultipartFile file, String caption);
-	List<GalleryDto> getList(Model model, GalleryDto dto);
+	void getList(Model model, GalleryDto dto);
 	byte[] images(String name) throws IOException;
 	void delete(int num);
-	void detail(GalleryDto dto, Model model);
+	void getData(Model model, GalleryDto dto);
 }

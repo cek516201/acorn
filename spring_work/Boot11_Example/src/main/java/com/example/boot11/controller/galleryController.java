@@ -1,7 +1,6 @@
 package com.example.boot11.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,15 +22,15 @@ public class galleryController {
 		return "gallery/uploadform";
 	}
 	@PostMapping("/gallery/upload")
-	public String upload(MultipartFile file, String caption) {
-		service.upload(file, caption);
+	public String upload(MultipartFile image, String caption) {
+		service.upload(image, caption);
 		
 		return "redirect:/gallery/list";
 	}
 	
 	@GetMapping("/gallery/list")
 	public String list(Model model, GalleryDto dto) {
-		List<GalleryDto> list = service.getList(model, dto);
+		service.getList(model, dto);
 		
 		return "gallery/list";
 	}
@@ -39,11 +38,11 @@ public class galleryController {
 	@ResponseBody
 	//@GetMapping("gallery/images/{saveFileName}")
 	@GetMapping(
-			value = "gallery/images/{saveFileName}",
+			value = "gallery/images/{imageName}",
 			produces = {MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE}
 	)
-	public byte[] images(@PathVariable("saveFileName")String name) throws IOException {
-		byte[] bytes = service.images(name);
+	public byte[] images(@PathVariable("imageName")String imageName) throws IOException {
+		byte[] bytes = service.images(imageName);
 		
 		return bytes;
 	}
@@ -56,8 +55,8 @@ public class galleryController {
 	}
 	
 	@GetMapping("/gallery/detail")
-	public String detail(GalleryDto dto, Model model) {
-		service.detail(dto, model);
+	public String detail(Model model, GalleryDto dto) {
+		service.getData(model, dto);
 		
 		return "gallery/detail";
 	}

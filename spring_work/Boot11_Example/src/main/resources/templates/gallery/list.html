@@ -16,16 +16,38 @@
             <div th:each="tmp : ${list}" class="col-sm-6 col-md-4 col-lg-3">
                 <div class="card mb-3">
                     <a th:href="@{/gallery/detail(num=${tmp.num}, condition=${dto.condition}, keyword=${dto.keyword})}">
-                        <img class="card-img-top" th:src="@{'/gallery/images/' + ${tmp.saveFileName}}" >
+                    	<div class="img-wrapper">
+                    		<img class="card-img-top" th:src="@{/gallery/images/{imageName}(imageName=${tmp.saveFileName})}" >
+                    	</div> 
                     </a>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">[[${tmp.caption}]]</p>
-                    <p class="card-text">[[${tmp.writer}]]</strong></p>
-                    <p><small>[[${tmp.regdate}]]</small></p>
+	                <div class="card-body">
+	                    <p class="card-text">[[${tmp.caption}]]</p>
+	                    <p class="card-text">by <strong>[[${tmp.writer}]]</strong></p>
+	                    <p><small>[[${tmp.regdate}]]</small></p>
+	                </div>
                 </div>
             </div>
         </div>
+        
+        <nav>
+            <ul class="pagination justify-content-center" th:if="${totalPageCount != 0}">
+                <li th:if="${startPageNum != 1}" class="page-item">
+                    <a class="page-link" th:href="@{/gallery/list(pageNum=${startPageNum-1}, condition=${dto.condition}, keyword=${dto.keyword})}">Prev</a>
+                </li>
+                <li th:unless="${startPageNum != 1}" class="page-item disabled">
+					<a class="page-link" href="javascript:">Prev</a>
+				</li>
+                <li th:each="i : ${#numbers.sequence(startPageNum, endPageNum)}" th:class="${i == pageNum ? 'page-item active' : 'page-item'}">
+                    <a class="page-link" th:href="@{/gallery/list(pageNum=${i}, condition=${dto.condition}, keyword=${dto.keyword})}">[[${i}]]</a>
+                </li>
+                <li th:if="${endPageNum < totalPageCount}" class="page-item">
+                    <a class="page-link" th:href="@{/gallery/list(pageNum=${endPageNum+1}, condition=${dto.condition}, keyword=${dto.keyword})}">Next</a>
+                </li>
+                <li th:unless="${endPageNum < totalPageCount}" class="page-item disabled">
+					<a class="page-link" href="javascript:">Next</a>
+				</li>
+            </ul>
+        </nav>
         
 		<form th:action="@{/gallery/list}" method="get">
         	<label for="condition">검색조건</label>

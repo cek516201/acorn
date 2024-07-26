@@ -20,5 +20,5 @@ public class GalleryDto {
 	
 	private String condition = "", keyword = ""; 
 
-	private int startRowNum, endRowNum, pageNum = 1;
+	private int startRowNum, endRowNum, pageNum=1;
 }

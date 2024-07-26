@@ -25,10 +25,6 @@ public class GalleryServiceImpl implements GalleryService{
 	public void upload(MultipartFile file, String caption) {
 		String writer = SecurityContextHolder.getContext().getAuthentication().getName();
 		
-		//원본 파일명
-		String orgFileName = file.getOriginalFilename();
-		//파일의 크기
-		long fileSize = file.getSize();
 		//저장할 파일명을 하나 얻어낸다. 
 		String saveFileName = UUID.randomUUID().toString();
 		//저장할 파일의 상세 경로
@@ -48,15 +44,38 @@ public class GalleryServiceImpl implements GalleryService{
 	}
 	
 	@Override
-	public List<GalleryDto> getList(Model model, GalleryDto dto) {
+	public void getList(Model model, GalleryDto dto) {
+		// pageNum 에 해당하는 글정보를 select 에서 Model 객체에 담는 작업을 하면 된다.
+		int pageNum=dto.getPageNum();
+		//보여줄 페이지의 시작 ROWNUM
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		//보여줄 페이지의 끝 ROWNUM
+		int endRowNum=pageNum*PAGE_ROW_COUNT;
+		
+		//하단 시작 페이지 번호 
+		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
+		//하단 끝 페이지 번호
+		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
+		//전체 글의 갯수
+		int totalRow=dao.getCount(dto);
+		//전체 페이지의 갯수 구하기
+		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		//끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다.
+		if(endPageNum > totalPageCount){
+			endPageNum=totalPageCount; //보정해 준다. 
+		}
+		dto.setStartRowNum(startRowNum);
+		dto.setEndRowNum(endRowNum);
+		model.addAttribute("dto", dto);
+		
 		List<GalleryDto> list = dao.getList(dto);
 		model.addAttribute("list", list);
 		
-		
-		
-		model.addAttribute("dto", dto);
-		
-		return list;
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
+		model.addAttribute("totalPageCount", totalPageCount);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("totalRow", totalRow);
 	}
 	
 	@Override
@@ -70,7 +89,7 @@ public class GalleryServiceImpl implements GalleryService{
 	
 	@Override
 	public void delete(int num) {
-		GalleryDto dto = dao.getDto(num);
+		GalleryDto dto = dao.getData(GalleryDto.builder().num(num).build());
 		
 		String writer = dto.getWriter();
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -88,9 +107,9 @@ public class GalleryServiceImpl implements GalleryService{
 	}
 	
 	@Override
-	public void detail(GalleryDto dto, Model model) {
-		GalleryDto detailDto = dao.getDetail(dto);
-		model.addAttribute("detailDto", detailDto);
+	public void getData(Model model, GalleryDto dto) {
+		GalleryDto data = dao.getData(dto);
+		model.addAttribute("detailDto", data);
 		model.addAttribute("dto", dto);
 	}
 	
@@ -98,4 +117,8 @@ public class GalleryServiceImpl implements GalleryService{
 	private GalleryDao dao;
 	@Value("${file.location}")
 	private String fileLocation;
+	//한 페이지에 글을 몇개씩 표시할 것인지
+	private final int PAGE_ROW_COUNT=3;
+	//하단 페이지 UI를 몇개씩 표시할 것인지
+	private final int PAGE_DISPLAY_COUNT=1;
 }
