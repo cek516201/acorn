@@ -75,11 +75,10 @@
 	  border: 1px solid #ccc;
 	  border-radius: 4px;
 	}
-	
 	.loader{
 		/* 로딩 이미지를 가운데 정렬하기 위해 */
 		text-align: center;
-		/* 일단 숨겨놓기 */
+		/* 일단 숨겨 놓기 */
 		display: none;
 	}
 	/* 회전하는 키프레임 정의 */
@@ -98,7 +97,7 @@
 	
 	body{
 		padding-bottom: 200px;
-	}
+	}	
 </style>
 </head>
 <body>
@@ -252,12 +251,20 @@
 				}
 			});
 			
-			let currentPage = 1;
-			// 마지막 페이지는 totalPageCount 이다
-			let lastPage = [[${totalPageCount}]];
-			let isLoading = false;
-			// 스크롤 이벤트가 일어났을 때 호출되는 함수 등록
+			//댓글의 현재 페이지 번호를 관리할 변수를 만들고 초기값 1 대입하기
+			let currentPage=1;
+			//마지막 페이지는 totalPageCount 이다.  
+			let lastPage=[[${totalPageCount}]];
+			//추가로 댓글을 요청하고 그 작업이 끝났는지 여부를 관리할 변수 
+			let isLoading=false; //현재 로딩중인지 여부 
+			
+			//스크롤 이벤트가 일어 났을때 호출되는 함수 등록
 			window.addEventListener("scroll", ()=>{
+				/*
+					window.innerHeight : 웹브라우저 창의 높이
+					window.scrollY : 현재 스크롤된 양
+					document.body.offsetHeight : 문서(contents)의 전체 높이
+				*/
 				//바닥 까지 스크롤 했는지 여부 
 				const isBottom = 
 					window.innerHeight + window.scrollY  >= document.body.offsetHeight;
@@ -296,7 +303,9 @@
 						document.querySelector(".loader").style.display="none";
 					});
 				}	
+				
 			});
+			
 			
 			addReplyListener(".reply-link");
 			addDeleteListener(".delete-link");
@@ -433,3 +442,13 @@
 	</div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

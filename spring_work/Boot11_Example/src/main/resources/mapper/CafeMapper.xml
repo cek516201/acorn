@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cafe">
+	
 	<sql id="search">
 		<choose>
 			<when test="condition == 'title_content'">
@@ -16,7 +17,7 @@
 	</sql>
 	
 	<sql id="column">
-		num, writer, title, content, viewCount, TO_CHAR(regdate, 'YYYY.MM.DD HH24:MI') AS regdate
+		num,writer,title,content,viewCount, TO_CHAR(regdate, 'YYYY.MM.DD HH24:MI') AS regdate
 	</sql>
 
 	<update id="update" parameterType="cafeDto">
@@ -35,11 +36,10 @@
 		FROM board_cafe
 		WHERE num=#{num}
 	</select>
-
-	<!--
-		parameter에는 검색 keyword가 있을 수 있다
-		이전 글의 글 번호와 다음 글의 글 번호를 select
-	-->
+	<!-- 
+		parameter 로 전달되는 CafeDto 에는 검색 keyword 가 있을수 있다. 
+		keyword 가 있다면 keword 에 해당하는 글 목록중에서 이전글의 글번호와 다음글의 글번호를 select 해야한다. 
+	 -->
 	<select id="getDetail" parameterType="cafeDto" resultType="cafeDto">
 		SELECT *
 		FROM

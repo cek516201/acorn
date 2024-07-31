@@ -17,15 +17,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.boot11.dao.FileDao;
 import com.example.boot11.dto.FileDto;
 import com.example.boot11.exception.NotOwnerException;
+import com.example.boot11.repository.FileDao;
 
 @Service
-public class FileServiceImpl implements FileService {
+public class FileServiceImpl implements FileService{
+	//비즈니스 로직을 처리하기 위한 의존객체 주입 받기 
+	@Autowired FileDao dao;
+	
+	//파일을 저장할 위치
+	@Value("${file.location}")
+	private String fileLocation;
+	
+	//한 페이지에 글을 몇개씩 표시할 것인지
+	final int PAGE_ROW_COUNT=5;
+	//하단 페이지 UI를 몇개씩 표시할 것인지
+	final int PAGE_DISPLAY_COUNT=5;
+	
 	@Override
 	public void getList(Model model, FileDto dto) {
 		// pageNum 에 해당하는 글정보를 select 에서 Model 객체에 담는 작업을 하면 된다.
+		
 		int pageNum=dto.getPageNum();
 		//보여줄 페이지의 시작 ROWNUM
 		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
@@ -51,38 +64,21 @@ public class FileServiceImpl implements FileService {
 		
 		//dao 를 이용해서 파일 목록을 얻어온다음
 		List<FileDto> list=dao.getList(dto);
-		//Model 객체에 담아준다.
+		//Model 객체에 template 페이지에서 필요한 정보를 담아준다.
 		model.addAttribute("list", list);
 		model.addAttribute("startPageNum", startPageNum);
 		model.addAttribute("endPageNum", endPageNum);
 		model.addAttribute("totalPageCount", totalPageCount);
 		model.addAttribute("pageNum", pageNum);
 		
-		model.addAttribute("dto", dto);
+		model.addAttribute("dto", dto); //키워드정보가 들어 있는 dto 를 모델에 담기 
 		model.addAttribute("totalRow", totalRow);
 	}
 
 	@Override
-	public void delete(int num) {
-		FileDto dto = dao.select(num);
-		// 로그인된 사용자와 파일의 소유자가 같은지 확인해서 다르면 exception 발생시키기
-		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-		if(!userName.equals(dto.getWriter())) {
-			throw new NotOwnerException("작성자와 일치하지 않습니다");
-		}
-		
-		// 파일 시스템에서 실제로 삭제
-		String filePath = fileLocation + File.separator + dto.getSaveFileName();
-		File file = new File(filePath);
-		file.delete();
-		
-		dao.delete(num);
-	}
-
-	@Override
-	public void insert(FileDto dto) {
+	public void saveFile(FileDto dto) {
 		//파일 업로드 처리를 위한 객체의 참조값 얻어오기(업로드된 파일에 대한 정보를 얻어낼 객체)
-		MultipartFile myFile=dto.getFile();
+		MultipartFile myFile=dto.getMyFile();
 		//원본 파일명
 		String orgFileName=myFile.getOriginalFilename();
 		//파일의 크기
@@ -100,6 +96,8 @@ public class FileServiceImpl implements FileService {
 			e.printStackTrace();
 		}
 		//DB 에 업로드된 파일에 대한 정보를 저장한다.
+		
+		//로그인된 userName 이 글 작성자가 된다. 
 		String userName=SecurityContextHolder.getContext().getAuthentication().getName();
 		dto.setWriter(userName);
 		dto.setOrgFileName(orgFileName);
@@ -110,9 +108,9 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public ResponseEntity<InputStreamResource> download(int num) {
+	public ResponseEntity<InputStreamResource> getFileData(int num) {
 		//다운로드 해줄 파일의 정보를 DB 에서 읽어온다.
-		FileDto dto=dao.select(num);
+		FileDto dto=dao.getData(num);
 		ResponseEntity<InputStreamResource> responseEn=null;
 		try {
 			//다운로드 시켜줄 원본 파일명
@@ -142,13 +140,32 @@ public class FileServiceImpl implements FileService {
 		//InputStreamResource 객체를 리턴해준다.
 		return responseEn;
 	}
-	
-	//한 페이지에 글을 몇개씩 표시할 것인지
-	final private int PAGE_ROW_COUNT = 3;
-	//하단 페이지 UI를 몇개씩 표시할 것인지
-	final private int PAGE_DISPLAY_COUNT = 3;
-	@Value("${file.location}")
-	private String fileLocation;
-	@Autowired
-	private FileDao dao;
+
+	@Override
+	public void deleteFile(int num) {
+		//DB 에서 삭제할 파일의 정보를 읽어온다
+		FileDto dto=dao.getData(num);
+		//로그인된 사용자와 파일의 소유자가 같은지 확인해서 다르면 Exception 발생시키기
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(!userName.equals(dto.getWriter())) {
+			throw new NotOwnerException("남의 파일 지우기 없기!");
+		}
+		//파일 시스템에서 실제로 삭제하고 (실제 저장된 파일명이 필요하다)
+		String filePath=fileLocation + File.separator + dto.getSaveFileName();
+		File f = new File(filePath);
+		f.delete();
+		//DB 에서도 삭제 
+		dao.delete(num);
+	}
+
 }
+
+
+
+
+
+
+
+
+
+

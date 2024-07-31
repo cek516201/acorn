@@ -2,11 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>templates/file/upload_form.html</title>
+<title>/file/upload.html</title>
 </head>
 <body>
 	<div class="container">
-		upload
+		<h3>알림</h3>
+		<p>
+			파일이 업로드 되었습니다.
+			<a th:href="@{/file/list}">목록보기</a>
+		</p>
 	</div>
 </body>
 </html>

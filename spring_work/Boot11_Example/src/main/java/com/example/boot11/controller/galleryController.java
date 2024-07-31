@@ -1,66 +1,74 @@
 package com.example.boot11.controller;
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.boot11.dto.GalleryDto;
 import com.example.boot11.service.GalleryService;
 
 @Controller
-public class galleryController {
-	@GetMapping("/gallery/uploadform")
-	public String uploadform() {
-		return "gallery/uploadform";
-	}
-	@PostMapping("/gallery/upload")
-	public String upload(MultipartFile image, String caption) {
-		service.upload(image, caption);
-		
-		return "redirect:/gallery/list";
-	}
+public class GalleryController {
 	
-	@GetMapping("/gallery/list")
-	public String list(Model model, GalleryDto dto) {
-		service.getList(model, dto);
-		
-		return "gallery/list";
-	}
-	
-	@ResponseBody
-	//@GetMapping("gallery/images/{saveFileName}")
-	@GetMapping(
-			value = "gallery/images/{imageName}",
-			produces = {MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE}
-	)
-	public byte[] images(@PathVariable("imageName")String imageName) throws IOException {
-		byte[] bytes = service.images(imageName);
-		
-		return bytes;
-	}
+	@Autowired private GalleryService service;
 	
 	@GetMapping("/gallery/delete")
 	public String delete(int num) {
-		service.delete(num);
-		
+		service.deleteOne(num);
 		return "redirect:/gallery/list";
 	}
 	
 	@GetMapping("/gallery/detail")
-	public String detail(Model model, GalleryDto dto) {
-		service.getData(model, dto);
+	public String detail(Model model, int num) {
+		//num 에는 자세히 보여줄 gallery 의 pk 가 들어 있다. 
+		service.selectOne(model, num);
 		
 		return "gallery/detail";
 	}
 	
-	@Autowired
-	private GalleryService service;
+	@PostMapping("/gallery/upload")
+	public String upload(GalleryDto dto) {
+		
+		//String caption 과 MultipartFile image 가 들어 있는 GalleryDto 를 서비스에 전달해서 저장한다 
+		service.addToGallery(dto);
+		
+		return "redirect:/gallery/list";
+	}
+	
+	@GetMapping("/gallery/upload_form")
+	public String uploadForm() {
+		
+		return "gallery/upload_form";
+	}
+	
+	@GetMapping("/gallery/list")
+	public String list(Model model,@RequestParam(defaultValue = "1") int pageNum) {
+		/*
+		 *  서비스에 Model 객체와 pageNum 을 전달해서 
+		 *  Model 에 pageNum 에 해당하는 글 목록이 담기도록 한다.
+		 *  Model 에 담긴 내용을 view page(Thymeleaf 템플릿페이지) 에서 사용할수 있다
+		 */
+		service.selectPage(model, pageNum);
+		
+		return "gallery/list";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

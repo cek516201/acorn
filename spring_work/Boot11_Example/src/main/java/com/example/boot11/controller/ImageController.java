@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class ImageController{
+public class ImageController {
+	@Value("${file.location}")
+	private String fileLocation;
+	
 	@ResponseBody
 	@GetMapping(
 		value = "/upload/images/{imageName}" , 
@@ -23,14 +26,22 @@ public class ImageController{
 			MediaType.IMAGE_GIF_VALUE}
 	)
 	public byte[] image(@PathVariable("imageName") String name) throws IOException{
+		
 		//읽어들일 파일의 절대 경로 
 		String absolutePath=fileLocation + File.separator + name;
 		// 파일에서 읽어들일 InputStream 
 		InputStream is=new FileInputStream(absolutePath);
 		// commons io 에 있는 IOUtils 클래스를 이용해서 이미지 파일에서 byte[] 을 얻어낸다 
 		return IOUtils.toByteArray(is);
-	}
-	
-	@Value("${file.location}")
-	private String fileLocation;
+	}	
 }
+
+
+
+
+
+
+
+
+
+

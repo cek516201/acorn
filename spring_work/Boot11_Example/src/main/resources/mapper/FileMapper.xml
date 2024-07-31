@@ -2,14 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="file">
 	<sql id="column">
-		num, writer, title, orgFileName, saveFileName, fileSize, regdate
+		num,writer,title,orgFileName,saveFileName,fileSize,regdate
 	</sql>
 	
 	<sql id="whereCondition">
 		<choose>
 			<when test="condition == 'title_filename'">
-				WHERE title LIKE '%' || #{keyword} || '%' OR
-				      orgFileName LIKE '%' || #{keyword} || '%'
+				WHERE title LIKE'%' || #{keyword} || '%' OR orgFileName LIKE '%' || #{keyword} || '%'
 			</when>
 			<when test="condition == 'title'">
 				WHERE title LIKE '%' || #{keyword} || '%'
@@ -19,7 +18,23 @@
 			</when>
 		</choose>
 	</sql>
-
+	
+	<insert id="insert" parameterType="fileDto">
+		INSERT INTO board_file
+		( <include refid="column"/> )
+		VALUES(board_file_seq.NEXTVAL, #{writer}, #{title}, 
+			#{orgFileName}, #{saveFileName}, #{fileSize}, SYSDATE)
+	</insert>
+	<select id="getData" parameterType="int" resultType="fileDto">
+		SELECT <include refid="column"/>
+		FROM board_file
+		WHERE num=#{num}
+	</select>
+	<delete id="delete" parameterType="int">
+		DELETE FROM board_file
+		WHERE num=#{num}
+	</delete>
+	
 	<select id="getList" parameterType="fileDto" resultType="fileDto">
 		SELECT *
 		FROM
@@ -31,30 +46,29 @@
 				ORDER BY num DESC) result1)
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
-
-	<delete id="delete" parameterType="int">
-		DELETE FROM board_file
-		WHERE
-		num = ${int}
-	</delete>
-
-	<insert id="insert" parameterType="fileDto">
-		INSERT INTO board_file
-		<include refid="column" />
-		VALUES(board_file_seq.NEXTVAL, #{writer}, #{title}, #{orgFileName},
-		#{saveFileName}, #{fileSize}, sysdate)
-	</insert>
-
-	<select id="select" parameterType="int" resultType="fileDto">
-		SELECT
-		<include refid="column" />
-		FROM board_file
-		WHERE num = #{int}
-	</select>
-
+	
 	<select id="getCount" parameterType="fileDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM board_file
 		<include refid="whereCondition"/>
 	</select>
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
