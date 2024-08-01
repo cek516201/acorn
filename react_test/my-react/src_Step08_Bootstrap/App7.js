@@ -24,10 +24,10 @@ function MyModal(props) {
           </Modal.Header>
           <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary">
+            <Button variant="secondary" onClick={()=>{props.setShow(false)}}>
               Close
             </Button>
-            <Button variant="primary">
+            <Button variant="primary" onClick={()=>{props.setShow(false)}}>
               Save Changes
             </Button>
           </Modal.Footer>
