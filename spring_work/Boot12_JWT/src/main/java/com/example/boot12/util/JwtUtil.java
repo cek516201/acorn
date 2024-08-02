@@ -47,7 +47,7 @@ public class JwtUtil {
         Map<String, Object> claims = new HashMap<>();
         // 추가 정보(claims) 도 테스트로 담아보기
         claims.put("email", "aaa@naver.com");
-        claims.put("address", "강남구");
+        claims.put("address", "seoul");
         return createToken(claims, username);
     }
  
@@ -70,8 +70,3 @@ public class JwtUtil {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }	
 }
-
-
-
-
-
