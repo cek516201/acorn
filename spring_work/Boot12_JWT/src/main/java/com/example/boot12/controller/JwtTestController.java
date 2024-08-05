@@ -1,5 +1,8 @@
 package com.example.boot12.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,10 +37,8 @@ public class JwtTestController {
 
 	@ResponseBody
 	@GetMapping("/api/names")
-	public String[] names() {
-		String[] names = { "ㅁㅁㅁ", "ㄴㄴㄴ", "ㅇㅇㅇ" };
-
-		return names;
+	public List<String> names() {
+		return Arrays.asList("ㅁㅁㅁ", "ㄴㄴㄴ", "ㅇㅇㅇ");
 	}
 
 	@ResponseBody
