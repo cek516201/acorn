@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.boot13.entity.Dept;
 
-public interface DeptRepository extends JpaRepository<Dept, Integer> {
+public interface DeptRepository extends JpaRepository<Dept, Integer>{
 
 }

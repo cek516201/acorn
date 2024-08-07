@@ -23,6 +23,19 @@ public class Dept {
 	private String dname;
 	private String loc;
 	
+	//해당 부서에 속해 있는 사원의 목록 
 	@OneToMany(mappedBy = "dept", fetch = FetchType.EAGER)
-	private List<Emp> list = new ArrayList<Emp>();
+	private List<Emp> list=new ArrayList<>();
 }
+
+
+
+
+
+
+
+
+
+
+
+

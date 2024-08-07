@@ -5,24 +5,36 @@
 <title>templates/member/list.html</title>
 </head>
 <body>
-	<a th:href="@{/member/insertform}">회원 추가</a>
-	<table>
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>이름</th>
-				<th>주소</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="elem : ${list}">
-				<td>[[${elem.num}]]</td>
-				<td>[[${elem.name}]]</td>
-				<td>[[${elem.addr}]]</td>
-				<td><a th:href="@{/member/updateform(num=${elem.num})}">수정</a></td>
-				<td><a th:href="@{/member/delete(num=${elem.num})}">삭제</a></td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="container">
+		<a th:href="@{/member/insertform}">회원추가</a>
+		<h1>회원 목록 입니다</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>이름</th>
+					<th>주소</th>
+					<th>수정</th>
+					<th>삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!--/* list 는 List<MemberDto> type 임으로 tmp 는 MemberDto 다 */--> 
+				<tr th:each="tmp : ${list}">
+					<td>[[${tmp.num}]]</td>
+					<td th:text="${tmp.name}"></td>
+					<td th:text="${tmp.addr}"></td>
+					<td><a th:href="@{/member/updateform(num=${tmp.num})}">수정</a></td>
+					<td><a th:href="@{/member/delete(num=${tmp.num})}">삭제</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>
+
+
+
+
+
+
