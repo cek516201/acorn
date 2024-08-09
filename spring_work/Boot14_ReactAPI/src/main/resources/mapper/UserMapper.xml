@@ -3,26 +3,26 @@
 <mapper namespace="user">
 
 	<update id="update" parameterType="com.example.boot14.dto.UserDto">
-		UPDATE user_tbl
+		UPDATE user_table
 		SET email=#{email} <if test="profile != null">,profile=#{profile}</if>
 		WHERE userName=#{userName}
 	</update>
 	
 	<update id="updatePwd" parameterType="com.example.boot14.dto.UserDto">
-		UPDATE user_tbl
+		UPDATE user_table
 		SET password=#{newPassword}
 		WHERE userName=#{userName}
 	</update>
 	
 	<insert id="insert" parameterType="com.example.boot14.dto.UserDto">
-		INSERT INTO user_tbl
+		INSERT INTO user_table
 		(id, userName, password, email, role, regdate)
 		VALUES(user_seq.NEXTVAL, #{userName}, #{password}, #{email}, #{role}, SYSDATE)
 	</insert>
 	
 	<select id="getData" parameterType="string" resultType="com.example.boot14.dto.UserDto">
 		SELECT id, userName, password, email, role, profile, regdate
-		FROM user_tbl
+		FROM user_table
 		WHERE userName=#{userName}
 	</select>
 	
