@@ -10,10 +10,14 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.boot14.dto.UserDto;
 import com.example.boot14.repository.UserDao;
+
+
+
 
 // bean 으로 만들기 위한 어노테이션 
 @Service
@@ -47,4 +51,29 @@ public class CustomUserDetailsService implements UserDetailsService{
 		//리턴해준다.
 		return ud;
 	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

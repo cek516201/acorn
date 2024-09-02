@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 function MemberUpdateForm() {
+
     const navigate = useNavigate()
 
     /*
@@ -24,7 +25,7 @@ function MemberUpdateForm() {
         axios.get("/members/"+num)
         .then(res=>setState(res.data))
         .catch(error=>console.log(error))
-    })
+    }, [])
 
     const handleChange = (e)=>{
         setState({

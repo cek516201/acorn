@@ -11,9 +11,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-@Alias("MemberDto")
+@Alias("memberDto")  // mybatis mapper xml 에서 사용할 type 별칭 
 public class MemberDto {
 	private int num;
 	private String name;
 	private String addr;
 }
+
+
+
+
+
+
+
+
+
+
+

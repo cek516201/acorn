@@ -1,24 +1,27 @@
 // App.css 적용하기 (내부 css)
+import { NavLink, useOutlet } from 'react-router-dom';
 import './App.css'
-import { useOutlet } from 'react-router-dom'
+//bootstrap css 로딩하기 
 import 'bootstrap/dist/css/bootstrap.css'
 import BsNavBar from './components/BsNavBar';
-import LoginModal from './pages/LogInModal';
+import LoginModal from './components/LoginModal';
 import { useSelector } from 'react-redux';
 
 //함수형 component
 function App() {
-  // 현재 route된 정보를 출력해주는 book
-  const currentOutlet = useOutlet() 
-  const loginModal = useSelector(state=>state.loginModal)
 
+  //현재 route 된 정보를 출력해주는 hook
+  const currentOutlet = useOutlet()
+  //로그인 모달과 관련된 값을 redux store 로 부터 읽어온다.
+  const loginModal = useSelector(state => state.loginModal)
+  
   return (
     <>
-      <BsNavBar />
+      <BsNavBar/>
       <div className="container">
         <div>{currentOutlet}</div>
       </div>
-      <LoginModal show={loginModal.show} message={loginModal.message}/>
+      <LoginModal show={loginModal.show} message={loginModal.message} url={loginModal.url}/>
     </>
   );
 }

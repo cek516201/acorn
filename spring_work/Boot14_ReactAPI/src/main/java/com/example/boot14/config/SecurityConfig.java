@@ -16,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.example.boot14.filter.JwtFilter;
 
+
 @Configuration //설정 클래스라고 알려준다
 @EnableWebSecurity //Security 를 설정하기 위한 어노테이션
 public class SecurityConfig {
@@ -31,7 +32,8 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
 		//화이트 리스트를 미리 배열에 넣어두기
 		String[] whiteList= {"/image/upload","/upload/images/**", "/file/upload", "/file/download",
-				"/image/upload2", "/members/**", "/posts/**", "/auth", "/gallery"};
+				"/image/upload2", "/members/**", "/auth", "/gallery", "/gallery/**",
+				"/editor_upload", "editor/images/**", "/cafes", "/cafes/**"};
 
 		//메소드의 매개변수에 HttpSecurity 의 참조값이 전달되는데 해당 객체를 이용해서 설정을 한다음
 		httpSecurity
@@ -70,5 +72,18 @@ public class SecurityConfig {
 	      .passwordEncoder(bCryptPasswordEncoder)
 	      .and()
 	      .build();
-	}	
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+

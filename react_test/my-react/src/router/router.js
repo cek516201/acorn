@@ -1,36 +1,38 @@
-import App from '../App' // App Component를 최상위 component로 사용하기 위해
+// src/router/router.js
+import App from '../App' //App Component 를 최상위 component 로 사용하기 위해
+import CafeDetail from '../components/CafeDetail'
+import ProtectedRoute from '../components/ProtectedRoute'
+import Cafe from '../pages/Cafe'
+import CafeForm from '../pages/CafeForm'
 import Gallery from '../pages/Gallery'
+import GalleryDetail from '../pages/GalleryDetail'
 import GalleryForm from '../pages/GalleryForm'
 import Home from '../pages/Home'
 import Member from '../pages/Member'
 import MemberForm from '../pages/MemberForm'
 import MemberUpdateForm from '../pages/MemberUpdateForm'
-import Post from '../pages/Post'
-import PostForm from '../pages/PostForm'
-import PostUpdateForm from '../pages/PostUpdateForm'
 
 const { createBrowserRouter } = require("react-router-dom")
 
-// 라우터 정보를 배열에 저장
+//라우트 정보를 배열에 저장
 const routes = [
-    { path: "/", element: <Home/>},
-    { path: "/members", element: <Member/>},
-    { path: "/members/new", element: <MemberForm/>},
-    { path: "/members/:num/edit", element: <MemberUpdateForm/>},
-    
-    { path: "/posts", element: <Post/>},
-    { path: "/posts/new", element: <PostForm/>},
-    { path: "/posts/:num/edit", element: <PostUpdateForm/>},
-
-    { path: "/gallery", element: <Gallery/>},
-    { path: "/gallery/new", element: <GalleryForm/>}
+    { path: "/", element: <Home /> },
+    { path: "/members", element: <Member /> },
+    { path: "/members/new", element: <MemberForm /> },
+    { path: "/members/:num/edit", element: <MemberUpdateForm /> },
+    { path: "/gallery", element: <Gallery /> },
+    { path: "/gallery/new", element: <ProtectedRoute><GalleryForm /></ProtectedRoute> },
+    { path: "/gallery/:num", element: <GalleryDetail /> },
+    { path: "/cafes", element: <Cafe /> },
+    { path: "/cafes/new", element: <ProtectedRoute><CafeForm /></ProtectedRoute> },
+    { path: "/cafes/:num", element: <ProtectedRoute><CafeDetail /></ProtectedRoute> }
 ]
 
 //BrowserRouter 를 만들기
 const router = createBrowserRouter([{
-    path:"/",
-    element:<App/>,
-    children: routes.map((route)=>{
+    path: "/",
+    element: <App />,
+    children: routes.map((route) => {
         return {
             index: route.path === "/", //자식의 path 가 "/" 면 index 페이지 역활을 하게 하기 
             path: route.path === "/" ? undefined : route.path, // path 에 "/" 두개가 표시되지 않게  

@@ -1,10 +1,5 @@
 package com.example.boot14.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-
-import com.example.boot14.dto.MemberDto;
-import com.example.boot14.service.MemberService;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,14 +11,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.boot14.dto.MemberDto;
+import com.example.boot14.service.MemberService;
+
 
 @RestController
 public class MemberController {
-	@GetMapping("/members")
-	public List<MemberDto> members() {
-		List<MemberDto> list = service.selectList();
+	
+	@Autowired private MemberService service;
+	
+	@PutMapping("/members/{num}") //번호는 MemberDto 에 들어 있어서 경로 파라미터값은 따로 필요 없음 
+	public MemberDto update(@RequestBody MemberDto dto) {
+		service.updateMember(dto);
+		return dto;
+	}
+	
+	@GetMapping("/members/{num}")
+	public MemberDto getData(@PathVariable("num") int num) {
+		//경로 파라미터로 전달되는 번호에 해당하는 회원정보를 리턴한다(json 으로 응답)
+		return service.selectOne(num);
+	}
+	
+	@DeleteMapping("/members/{num}")
+	public Map<String, Object> delete(@PathVariable("num") int num){
+		service.deleteMember(num);
 		
-		return list;
+		Map<String, Object> map=new HashMap<>();
+		map.put("isSuccess", true);
+		
+		return map;
 	}
 	
 	/*
@@ -37,35 +55,27 @@ public class MemberController {
 	 *  입력한 이름은 MemberDto 의 name 이라는 필드에 
 	 *  입력한 주소는 MemberDto 의 addr 이라는 필더에 자동으로 담긴다 
 	 */
-	// json -> MemberDto
 	@PostMapping("/members")
 	public MemberDto insert(@RequestBody MemberDto dto) {
-		// MemberDto -> json
+		//서비스가 리턴해주는 MemberDto 에는 추가된 회원의 번호도 들어 있다.
 		return service.addMember(dto);
 	}
 	
-	@DeleteMapping("/members/{num}")
-	public Map<String, Object> delete(@PathVariable("num") int num) {
-		service.deleteMember(num);
+	@GetMapping("/members")
+	public List<MemberDto> members() {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("isSuccess", true);
-		
-		return map;
+		return service.selectList();
 	}
 	
-	@GetMapping("/members/{num}")
-	public MemberDto getData(@PathVariable("num") int num) {
-		return service.selectOne(num);
-	}
-	
-	@PutMapping("/members/{num}")
-	public MemberDto update(@RequestBody MemberDto dto) {
-		service.updateMember(dto);
-		
-		return dto;
-	}
-	
-	@Autowired
-	private MemberService service;
 }
+
+
+
+
+
+
+
+
+
+
+
