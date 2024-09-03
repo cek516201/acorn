@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step09_form4.html</title>
+    <style>
+        textarea{
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>폼 요소에 기본값 설정하기</h1>
+        <p>
+            서버에서 클라이언트에게 폼을 응답할때 이미 저장된 값을 
+            출력한 체로 응답을 해야 할때가 있다.
+            예를 들어 회원 가입된 정보 보기로 이동한다면 
+            DB 에 이미 저장된 내용을 출력해 주어야 한다.
+        </p>
+        <form action="update.jsp">
+            이메일 <input type="email" name="email" value="kim@naver.com"><br>
+            <label for="job">직업</label>
+            <select name="job" id="job">
+                <option value="">선택</option>
+                <option value="programmer" selected>프로그래머</option>
+                <option value="doctor">의사</option>
+                <option value="pianist">피아니스트</option>
+                <option value="etc">기타</option>
+            </select>
+            <fieldset>
+                <legend>취미 정보 선택</legend>
+                <label>
+                    <input type="checkbox" name="hobby" value="soccer"> 축구
+                </label>
+                <label>
+                    <input type="checkbox" name="hobby" value="baking" checked> 베이킹
+                </label>
+                <label>
+                    <input type="checkbox" name="hobby" value="piano" checked> 피아노
+                </label>
+                <label>
+                    <input type="checkbox" name="hobby" value="etc"> 기타
+                </label>                
+            </fieldset>
+            하고 싶은말
+            <br>
+            <textarea name="comment" rows="10">안녕하세요
+                김구라
+                해골
+                원숭이
+            </textarea>
+        </form>
+        <pre>
+            pre 요소도 개행기호
+            공백
+            들여쓰기를 모드 해석해 준다 
+        </pre>
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step04_document6.html</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">box1</div>
+    <div class="box">box2</div>
+    <div class="box">box3</div>
+    <div class="box">box4</div>
+    <div class="box">box5</div>
+    <script>
+        //div 를 클릭했을때 콘솔창에 "box 를 클릭했습니다" 라고 출력되도록 프로그래밍 해 보세요.
+        document.querySelectorAll(".box").forEach((item)=>{
+            //item 은 box div 의 참조값이기 때문에 각각 이벤트 리스너 함수를 등록한다.
+            item.addEventListener("click", ()=>{
+                console.log("box 를 클릭했습니다");
+            });
+        });
+    </script>
+</body>
+</html>

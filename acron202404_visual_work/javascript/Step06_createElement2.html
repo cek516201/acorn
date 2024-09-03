@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step06_createElement2.html</title>
+</head>
+<body>
+    <button id="addBtn">추가하기</button>
+    <button id="addBtn2">추가하기2</button>
+    <table>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>이름</th>
+                <th>주소</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+    <script>
+        //sample data 
+        const data = {num:1, name:"김구라", addr:"노량진"};
+
+        document.querySelector("#addBtn2").addEventListener("click", ()=>{
+            // backtic 을 이용해서 추가할 tr 요소를 문자열로 미리 준비한다.
+            const html = `
+                <tr>
+                    <td>${data.num}</td>
+                    <td>${data.name}</td>
+                    <td>${data.addr}</td>
+                </tr>
+            `;
+            //document.querySelector("tbody").innerHTML = html;
+            document.querySelector("tbody").insertAdjacentHTML("beforeend", html);
+        });
+
+        document.querySelector("#addBtn").addEventListener("click", ()=>{
+            //td 요소 3개 만들어서 참조값을 상수에 담기
+            const td1=document.createElement("td");
+            const td2=document.createElement("td");
+            const td3=document.createElement("td");
+            //만들어진 td 에 data object 에 있는 회원정보를 innerText 로 출력
+            td1.innerText=data.num;
+            td2.innerText=data.name;
+            td3.innerText=data.addr;
+            //tr 요소를 만들어서
+            const tr=document.createElement("tr");
+            //td3 개를 append 한 후에
+            tr.append(td1);
+            tr.append(td2);
+            tr.append(td3);
+            //tbody 에 tr 을 append 한다.
+            document.querySelector("tbody").append(tr);
+        });
+
+    </script>
+</body>
+</html>

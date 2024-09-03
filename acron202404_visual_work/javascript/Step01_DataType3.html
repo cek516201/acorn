@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step01_DataType3.html</title>
+</head>
+<body>
+    <h1>javascript 데이터 type</h1>
+    <p>
+        <strong>object</strong> type
+    </p>
+    <script>
+        /*
+            한명의 회원정보를 다루고자 한다.
+            번호, 이름, 남자인지 여부
+        */
+
+        // 번호는 1 이고 이름은 김구라 이고 성별은 남자인 회원의 정보를 변수 3개에 각각 담아 보세요.
+
+        // 번호는 숫자 이기 때문에 number type 을 사용하고 번호라는것을 예상할수 있도록 변수명을 num 으로
+        let num=1;
+        
+        // 이름은 문자열 이기때문에 string type 을 사용하고 이름이라는것을 예상할수 있도록 변수명을 name 으로
+        let name="김구라";
+
+        // 남자인지 여부 (남자가 맞다 아니다) 둘중하나 이기때문에 true , false 를 나타내는 boolean type 사용
+        // 남자인지 여부를 예상할수 있도록 변수명을 isMan 으로
+        let isMan=true;
+        // object type
+        let mem1 = {num:1, name:"김구라", isMan:true};
+
+        //a는 object type
+        let a=mem1; // mem1에 있는 object type 값을 a에 복사
+        //b는 number type
+        let b=mem1.num;
+        //c는 string type
+        let c=mem1.name;
+        //d는 boolean type
+        let d=mem1.isMan;
+
+        //빈 object 를 만들고 나중에 필요에 따라서 데이터를 추가 할수 있다.
+        let mem2={};
+        mem2.num=2;
+        mem2.name="해골";
+        mem2.isMan=false;
+
+        //이미 만들어져 있는 변수에 들어 있는값을 object 에 넣어 줄수도 있다.
+        let mem3={num:num, name:name, isMan:isMan};
+        //변수명과 키값을 일치시키면서 object 를 만들고 싶으면 아래와 같이 간단히 만들수 있다.
+        let mem4={num, name, isMan};
+
+        //object 를 만들때 여러줄로 만들수도 있다.
+        let mem5={
+            num:3,
+            name:"원숭이",
+            isMan:true
+        };
+    </script>
+</body>
+</html>

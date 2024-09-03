@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step03_ControlStatement4.html</title>
+</head>
+<body>
+    <h1>다중 if 문 테스트</h1>
+    <input type="text" id="jumsu" placeholder="점수 입력...(0~100)">
+    <button onclick="check()">확인하기</button>
+    <button onclick="check2()">확인하기2</button>
+    <button id="checkBtn">확인하기3</button>
+    <p>
+        <strong id="result"></strong> 학점 입니다.
+    </p>
+    <script>
+        /*
+            input 요소에 점수를 입력하고 확인하기 버튼을 눌렀을때 점수가
+            90 점 이상이면 "A"
+            80 점 이상이면 "B"
+            70 점 이상이면 "C"
+            60 점 이상이면 "D"
+            그 이외의 경우에는 "F" 라는 문자열을
+            id 가 result 인 곳의 innerText 로 출력
+        */
+
+        //확인하기 버튼을 클릭하면 호출되는 함수 
+        function check(){
+            //1. 입력한 점수를 읽어온다.
+            let jumsu=document.querySelector("#jumsu").value;
+            //2. 점수가 어느 학점 구간인지 판별해서 학점을 출력한다
+            if(jumsu >= 90){
+                document.querySelector("#result").innerText="A";
+            }
+
+            if(jumsu >= 80 && jumsu < 90){
+                document.querySelector("#result").innerText="B";
+            }
+
+            if(jumsu >= 70 && jumsu < 80){
+                document.querySelector("#result").innerText="C";
+            }
+
+            if(jumsu >= 60 && jumsu < 70){
+                document.querySelector("#result").innerText="D";
+            }
+
+            if(jumsu < 60){
+                document.querySelector("#result").innerText="F";
+            }
+        }
+
+        function check2(){
+            //입력한 점수를 읽어와서 
+            let jumsu = document.querySelector("#jumsu").value;
+            //다중 if 문 을 사용하면 아래와 같이 구성할수 있다.
+            if(jumsu >= 90){
+                document.querySelector("#result").innerText="A";
+            }else if(jumsu >= 80){
+                document.querySelector("#result").innerText="B";
+            }else if(jumsu >= 70){
+                document.querySelector("#result").innerText="C";
+            }else if(jumsu >= 60){
+                document.querySelector("#result").innerText="D";
+            }else{
+                document.querySelector("#result").innerText="F";
+            }
+        }
+
+        document.querySelector("#checkBtn").addEventListener("click", ()=>{
+            //입력한 점수를 읽어와서 
+            let jumsu = document.querySelector("#jumsu").value;
+            //다중 if 문 을 사용하면 아래와 같이 구성할수 있다.
+            if(jumsu >= 90){
+                document.querySelector("#result").innerText="A";
+            }else if(jumsu >= 80){
+                document.querySelector("#result").innerText="B";
+            }else if(jumsu >= 70){
+                document.querySelector("#result").innerText="C";
+            }else if(jumsu >= 60){
+                document.querySelector("#result").innerText="D";
+            }else{
+                document.querySelector("#result").innerText="F";
+            }
+        });
+    </script>
+</body>
+</html>

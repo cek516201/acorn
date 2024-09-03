@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step01_localStroage.html</title>
+</head>
+<body>
+    <div class="container">
+        <h1>localStorage</h1>
+        <p>
+            웹브라우저에 문자열을 영구 저장할수 있는 localStorage 사용해 보기
+        </p>
+        <input type="text" id="inputName" placeholder="이름을 입력하세요...">
+        <button id="saveBtn">저장</button>
+        <button id="clearBtn">Clear</button>
+        <p id="name"></p>
+    </div>
+    <script>
+        document.querySelector("#clearBtn").addEventListener("click", ()=>{
+            // delete 예약어를 이용해서 object 에 특정 key 값을 삭제 할수 있다. 
+            //delete localStorage.savedName;
+            delete localStorage["savedName"];
+        });
+
+        //localStorage 에 "savedName" 이라는 키값으로 저장된 문자열이 있는지 읽어와 본다.
+        const savedName = localStorage.savedName;
+        if(savedName != undefined){
+            document.querySelector("#name").innerText = savedName + " 님 반갑습니다.";
+        }else{
+            document.querySelector("#name").innerText = "저장된 이름이 없습니다."
+        }
+
+        document.querySelector("#saveBtn").addEventListener("click", ()=>{
+            //입력한 이름을 읽어와서
+            const name=document.querySelector("#inputName").value;
+            // localStorage 에 savedName 이라는 키값으로 저장한다.
+            //localStorage.savedName = name;
+            //object 의 특정 key 값을 대괄호 안에 문자열로 지칭 할수도 있다. 
+            localStorage["savedName"] = name; //위와 동작이 같다 
+            alert("저장 했습니다"); 
+        });
+    </script>
+</body>
+</html>

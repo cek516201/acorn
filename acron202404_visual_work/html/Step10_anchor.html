@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step10_anchor.html</title>
+    <style>
+        .container{
+            width: 768px;
+            /* 값을 2개 명시하면 top,bottom 과 left, right 값을 한번에 지정하는 것이다 */
+            margin: 0 auto;
+        }
+        .card{
+            /* 경계선의 굵기, 스타일, 색상 을 한번에 지정 */
+            border: 1px solid #cecece;
+            border-radius: 10px;
+            width: 300px;
+        }
+        /* 
+            선택자에서 한칸 띄는 것은 자손 선택자를 의미한다 
+            즉 .card 의 자손 중에서 img 선택 
+            자식은 바로 인접한 요소가 자식이고 
+            자손은 인접하거나 혹은 내부에 어디든지 포함만 되어 있으면 된다.
+        */
+        .card img{
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>a(anchor) 요소는 하이퍼링크, 책갈피, javascript 등을 수행할때 사용한다</h3>
+        <a href="hello.html">눌러보셈</a>
+        <br>
+        <a href="https://daum.net">daum 으로 이동</a>
+        <br>
+        <!-- 이미지에 링크 걸기 -->
+        <a href="hello.html"><img src="images/kim1.png"></a>
+        <!--
+            div 전체에 링크 걸기 
+            
+            inline 요소는 원래 block 요소를 자식 요소로 가질수 없다.
+            단, a 요소만 예외적으로 div 같은 블럭요소를 자식 요소로 가질수 있다. 
+        -->
+        <a href="hello.html">
+            <div class="card">
+                <h3>어쩌구 저쩌구...</h3>
+                <p>
+                    <img src="images/image1.png">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non, itaque? Libero, deserunt excepturi nisi eos officiis cum ratione distinctio iure corrupti modi in voluptatum tempora maiores vero minima alias at.
+                </p>
+            </div>
+        </a>
+    </div>
+</body>
+</html>

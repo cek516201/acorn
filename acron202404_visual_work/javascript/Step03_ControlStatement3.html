@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step03_ControlStatement3.html</title>
+</head>
+<body>
+    <h1>양자 택일의 조건부 블럭 구성하기</h1>
+    <p id="one"></p>
+    <script>
+        let isMan=confirm("당신이 남성이면 확인을 누르고 여성이면 취소를 누르세요");
+
+        //만일 남성이면 위의 p 요소에 "당신은 남성이군요" 를 출력하고
+        //그렇지 않는 경우에는 p 요소에 "당신은 여성이군요" 를 출력하도록 프로그래밍
+        if(isMan){
+            document.querySelector("#one").innerText="당신은 남성이군요";
+        }else{
+            document.querySelector("#one").innerText="당신은 여성이군요";
+        }
+
+    </script>   
+</body>
+</html>

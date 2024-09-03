@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step03_ControlStatement5.html</title>
+</head>
+<body>
+    <h1>switch 문 테스트</h1>
+    <select id="weapon">
+        <option value="0">주먹</option>
+        <option value="1">칼</option>
+        <option value="2">총</option>
+    </select>
+    <button onclick="attack()">공격하기</button>
+    <button onclick="attack2()">공격하기</button>
+    <p>
+        <strong id="result"></strong>
+    </p>
+    <script>
+
+        function attack2(){
+            //1. 선택된 무기의 value 값을 읽어온다
+            let selectedValue = Number(document.querySelector("#weapon").value);
+            //2. 무기의 value 값이 0 이면 주먹, 1 이면 칼, 2 이면 총으로 공격한다는 문자열을
+            // id 가 result 인 요소의 innerText 로 출력한다.
+            switch(selectedValue){
+                case 0 :
+                    document.querySelector("#result").innerText="주먹으로 공격해요!";
+                    break;
+                case 1 :
+                    document.querySelector("#result").innerText="칼으로 공격해요!";
+                    break;
+                case 2 :
+                    document.querySelector("#result").innerText="총으로 공격해요!";
+                    break;
+            }
+        }
+
+        function attack(){
+            //1. 선택된 무기의 value 값을 읽어온다
+            let selectedValue = document.querySelector("#weapon").value;
+            //2. 무기의 value 값이 0 이면 주먹, 1 이면 칼, 2 이면 총으로 공격한다는 문자열을
+            // id 가 result 인 요소의 innerText 로 출력한다.
+            if(selectedValue == 0){
+                document.querySelector("#result").innerText="주먹으로 공격해요";
+            }else if(selectedValue == 1){
+                document.querySelector("#result").innerText="칼로 공격해요";
+            }else if(selectedValue == 2){
+                document.querySelector("#result").innerText="총으로 공격해요";
+            }
+        }
+    </script>
+</body>
+</html>

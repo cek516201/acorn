@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step06_createElement.html</title>
+    <style>
+        .container{
+            width: 768px; 
+            margin: 0 auto; /* 위 아래 margin : 0 , 좌우 margin : auto (동일하게 부여됨) */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>문서 요소를 필요한 시점에 만들어서 원하는 위치에 넣기</h1>
+        <input type="text" placeholder="할일 입력..." id="inputTodo">
+        <button id="addBtn">추가하기</button>
+        <button id="addBtn2">추가하기2</button>
+        <button id="addBtn3">추가하기3</button>
+        <button id="addBtn4">추가하기4</button>
+        <button id="addBtn5">추가하기5</button>
+        <ol>
+            
+        </ol>
+    </div>
+    <script>
+        //추가하기5 버튼을 눌렀을때 실행할 함수 등록 
+        document.querySelector("#addBtn5").addEventListener("click", ()=>{
+            const msg=document.querySelector("#inputTodo").value;
+            const html=`<li>${msg}</li>`;
+            //기존에 존재하는 내용을 덮어쓰기하면서 문자열 추가 
+            document.querySelector("ol").innerText = html;
+        });  
+        //추가하기4 버튼을 눌렀을때 실행할 함수 등록 
+        document.querySelector("#addBtn4").addEventListener("click", ()=>{
+            const msg=document.querySelector("#inputTodo").value;
+            const html=`<li>${msg}</li>`;
+            //기존에 존재하는 요소를 덮어쓰기 하면서 추가(실제 요소가 만들어진다)
+            document.querySelector("ol").innerHTML = html;
+        });  
+
+        //추가하기3 버튼을 눌렀을때 실행할 함수 등록 
+        document.querySelector("#addBtn3").addEventListener("click", ()=>{
+            //1. 입력한 문자열을 읽어온다
+            const msg=document.querySelector("#inputTodo").value;
+            //2. li 요소를 만들 문자열을 구성한다
+            //const html="<li>"+msg+"</li>"; 
+            const html=`<li>${msg}</li>`;
+            //3. 원하는 위치에 끼워 넣으면서 실제 요소를 만들도록 한다
+            document.querySelector("ol").insertAdjacentHTML("beforeend", html);
+        });  
+
+        //추가하기2 버튼을 눌렀을때 실행할 함수 등록 
+        document.querySelector("#addBtn2").addEventListener("click", ()=>{
+            const newLi = document.createElement("li");
+            const todo = document.querySelector("#inputTodo").value ;
+            newLi.innerText = todo;
+            /*
+                .insertAdjacentElement("추가할위치", 추가할요소)
+                
+                beforebegin, afterbegin, beforeend, afterend
+            */
+            document.querySelector("ol").insertAdjacentElement("afterbegin", newLi);
+        });    
+
+        //추가하기 버튼을 눌렀을때 실행할 함수 등록 
+        document.querySelector("#addBtn").addEventListener("click", ()=>{
+            //1. li 요소 만들기
+            const newLi = document.createElement("li");
+            //2. 입력한 문자열 읽어오기
+            const todo = document.querySelector("#inputTodo").value ;
+            //3. li 요소의 innerText 로 읽어온 문자열 출력하기
+            newLi.innerText = todo;
+            //4. ol 의 자식 요소로 li 요소를 추가하기 
+            document.querySelector("ol").append(newLi);
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

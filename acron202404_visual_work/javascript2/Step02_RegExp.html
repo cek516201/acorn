@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step02_RegExp.html</title>
+</head>
+
+<body>
+    <script>
+        const source = "Hello, World!";
+        const reg = /Hello/;
+        const reg2 = new RegExp("Hello");
+
+        // 검증할 문자열이 정규표현식과 매칭되는지 비교
+        const result = reg.test(source);
+        const result2 = reg2.test(source);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step03_ControlStatement2.html</title>
+</head>
+<body>
+    <h1>if 문 활용</h1>
+    <script>
+       /*
+            javascript 에서는 어떤 변수 안에 있는 값이 비었는지 안비었는지 여부를 
+            if 문으로 확인할수 있다.
+
+            비었다(empty) 로 판정되는 값
+            0, "", null, undefiend   이 4가지 값은 false 나 마찬가지이다.
+
+            null 은 아무것도 없는 빈 공간을 나타내는 예약어이다 
+        */ 
+        let obj={name:"kim"};
+        if(obj){
+            console.log(obj.name);
+        }
+
+        let obj2=null;
+
+        if(obj2){
+            console.log(obj2.name);
+        }
+
+    </script>
+</body>
+</html>

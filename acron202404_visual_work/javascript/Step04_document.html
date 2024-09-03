@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step04_document.html</title>
+</head>
+<body>
+    <!-- 
+        요소에 직접 적용할 css 를 style 속성을 이용해서 작성할수 있다 
+        - css 를 적용할 요소에 직접 작성하는 것이기 때문에 선택자(selector) 가 없어도 된다.
+        - 세미콜론(;) 으로 구분해서  css 속성명 : 적용할값   과 같은 형식으로 작성하면 된다.
+        - <style> 요소에 작성한 css 보다 우선시 된다. 
+        - javascript 로 직접 제어할수도 있다.
+        - inline css 라고 부른다.
+    -->
+    <h1 style="color:red; background-color:antiquewhite;">document object 사용해 보기</h1>
+    <p id="one">p1</p>
+    <p id="two" class="my-class">p2</p>
+    <p id="three" class="my-class">p3</p>
+    <button id="myBtn">눌러보셈</button>
+    <button id="changeBtn">바꾸기</button>
+    <button id="changeColor">p2 의 색상 바꾸기</button>
+    <script>
+        //p2 의 색상바꾸기 버튼을 눌렀을때 p2 요소의 글자색과 배경색을 원하는 색상으로 
+        //변경해 보세요.
+        document.querySelector("#changeColor").addEventListener("click", function(){
+            document.querySelector("#two").style.color="white";
+            document.querySelector("#two").style.backgroundColor="black";
+        });
+
+        document.querySelector("#myBtn").addEventListener("click", function(){
+            console.log("버튼을 눌렀네요?");
+        });
+
+        //바꾸기 버튼을 눌렀을때 h1 요소의 innerText 를  
+        //"안녕하세요" 로 변경되도록 프로그래밍 해 보세요.
+        document.querySelector("#changeBtn").addEventListener("click", function(){
+            document.querySelector("h1").innerText="안녕하세요";
+        });
+    </script>
+</body>
+</html>

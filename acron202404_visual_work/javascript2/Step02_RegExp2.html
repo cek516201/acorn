@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step02_RegExp2.html</title>
+    <style>
+        input{
+            width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input type="text" id="source" placeholder="검증할 문자열 입력">
+        <br>
+        <input type="text" id="expression" placeholder="정규표현식 입력">
+        <br>
+        <button id="testBtn">확인</button>
+        <p>결과 : <strong id="result"></strong></p>
+        <p>찾은 문자열 : <strong id="result2"></strong></p>
+    </div>
+    <script>
+        document.querySelector("#testBtn").addEventListener("click", () => {
+            const string = document.querySelector("#source").value;
+            const regex = document.querySelector("#expression").value;
+            const regExp = new RegExp(regex);
+            document.querySelector("#result").innerText = regExp.test(string);
+            document.querySelector("#result2").innerText = regExp.exec(string);
+        });
+    </script>
+</body>
+
+</html>

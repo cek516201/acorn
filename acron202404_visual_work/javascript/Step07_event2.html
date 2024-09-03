@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step07_event2.html</title>
+    <style>
+        .container{
+            display: flex;
+        }
+        .box{
+            width: 200px;
+            height: 200px;
+            border: 1px solid yellow;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+            background-color: black;
+            /* 글자를 가운데 정렬하기 위해 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+    <script>
+        //클래스명이 box 인 모든 div 의 참조값을 배열에 담아오기
+        const divs = document.querySelectorAll(".box");
+        /*
+        divs[0].addEventListener("mousemove", (e)=>{});
+        divs[1].addEventListener("mousemove", (e)=>{});
+        divs[2].addEventListener("mousemove", (e)=>{});
+        divs[3].addEventListener("mousemove", (e)=>{});
+        divs[4].addEventListener("mousemove", (e)=>{});
+        */
+
+        // divs 배열의 사이즈 만큼 반복문 돌면서 모든 div 에 이벤트 리스너 함수를 등록한다.
+        // for(let i=0; i<divs.length; i++){
+        //     divs[i].addEventListener("mousemove", (e)=>{
+        //         //이벤트가 일어난곳의 좌표를 이용해서 문자열을 구성하고 
+        //         const info=`x:${e.offsetX}, y:${e.offsetY}`;
+        //         //이벤트가 발생한 바로 그요소(div) 의 innerText 로 출력하기 
+        //         e.target.innerText = info;
+        //     });
+        // }
+
+        //forEach() 함수를 이용하면
+        divs.forEach((item)=>{
+            //item 은 div 의 참조값
+            item.addEventListener("mousemove", (e)=>{
+                //이벤트가 일어난곳의 좌표를 이용해서 문자열을 구성하고 
+                const info=`x:${e.offsetX}, y:${e.offsetY}`;
+                //이벤트가 발생한 바로 그요소(div) 의 innerText 로 출력하기 
+                e.target.innerText = info;
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

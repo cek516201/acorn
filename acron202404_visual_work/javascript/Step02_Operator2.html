@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step02_Operator2.html</title>
+</head>
+<body>
+    <h1>논리 연산자</h1>
+    <script>
+        /*
+            2. 논리(boolean) 연산자
+            - 논리값을 연산해주는 연산자
+        */
+
+        // and 연산자 &&
+        //연산에 참여하는 boolean 값이 모두다 true 면 결과는 true 이다.
+        let result1 = false && false; //false
+        let result2 = false && true; //false
+        let result3 = true && false; //false
+        let result4 = true && true; //true
+
+        // or 연산자 ||
+        //연산에 참여하는 boolean 값이 어느 하나만 true 면 결과는 true 이다.
+        let result5=false||false; //false
+        let result6=false||true; //true
+        let result7=true||false; //true
+        let result8=true||true; //true 
+
+        /*
+            ! 는 논리값을 반전시키는 not 연산자이다. 
+            읽을때는 "~가 아니면" 이라고 읽으면 된다. 
+        */
+        let result9 = !true;  //false
+        let result10 = !false; //true
+
+        // boolean type 을 담는 변수의 이름은 대화식으로 짓는게 일반적이다.
+        let canWait = true;
+        let canEat = false;
+        let isTall = true;
+
+        // 기다릴수 있고(그리고) 먹을수 있다면 
+        let result11 = canWait && canEat;
+        // 크거나(또는) 기다릴수 있다면
+        let result12 = isTall || canWait;
+        // 먹을수 없다면 
+        let result13 = !canEat;
+        // 크지 않거나(또는) 먹을수 있다면
+        let result14 = !isTall || canEat;
+    </script>
+</body>
+</html>

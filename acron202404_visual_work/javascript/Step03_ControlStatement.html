@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step03_ControlStatement.html</title>
+</head>
+<body>
+    <h1>조건부로 실행되는 if 문 블럭 구성하기</h1>
+    <p id="one"></p>
+    <p id="two"></p>
+    <script>
+        let name=prompt("이름을 입력하세요");
+        if(name == "김구라"){
+            document.querySelector("#one").innerText="주인님 반갑습니다.";
+        }
+
+        //비교하는 code 가 복잡한 경우에 따로 비교를 해서 결과를 얻어내서 
+        let isEqual = name == "김구라";
+
+        //결과 값을 if 문 안에서 사용할수도 있다.
+        if(isEqual){
+            document.querySelector("#two").innerText="주인님 반갑습니다";
+        }
+    </script>
+</body>
+</html>

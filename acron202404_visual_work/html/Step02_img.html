@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step02_img.html</title>
+    <style>
+        /* css 영역에서의 주석 입니다 */
+        img{
+            /* 폭을 200px 로 지정 */
+            width: 200px;
+            /* 모서리의 곡률반경을 10px 로 지정 */
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+   <h1>이미지 출력하기</h1>
+   <!-- 상대경로에 있는 이미지 로딩 -->
+   <img src="images/cat.jpeg" alt="고양이가 개를 추격하는 모습">
+   <!-- 절대경로(파일시스템)에 있는 이미지 로딩-->
+   <img src="C:\Users\user\playground\visual_work\html\images\cat.jpeg" alt="고양이가 개를 추격하는 모습">
+   <!-- 절대경로(웹)에 있는 이미지 로딩-->
+   <img src="https://picsum.photos/id/237/200/300" alt="강아지 사진">
+   <img src="https://picsum.photos/200/300">
+</body>
+</html>

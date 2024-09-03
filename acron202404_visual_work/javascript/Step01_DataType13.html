@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step01_DataType13.html</title>
+</head>
+<body>
+    <h1>배열 array 활용</h1>
+    <p>
+        배열은 object 이기도 하다 
+        특정 키값으로 저장된 어떤 기본값이 존재한다. 
+    </p>
+    <input type="text" id="inputName" placeholder="이름입력...">
+    <button id="addBtn" >추가</button>
+    <button id="addBtn2" >추가2</button>
+    <script>
+        let nums=[10, 20, 30, 40, 50];
+        let names=["김구라","해골","원숭이"];
+
+        //배열의 크기 참조
+        let size = nums.length;
+        //배열에 아이템 추가
+        nums.push(60);
+        //배열의 특정 인덱스 삭제 ( 2번 인덱스로 부터 1개 삭제)
+        nums.splice(2, 1);
+        //배열에 저장된 모든 아이템을 순서대로 함수의 매개 변수에 전달받기
+        nums.forEach(function(item){
+            console.log(item);
+        })
+
+        /* 
+            위의 input 요소에 이름을 입력하고 추가 버튼을 누르면 입력한 이름이
+            names 배열에 push 되도록 프로그래밍 해 보세요! 
+        */
+
+        //추가 버튼을 눌렀을때 실행할 함수 등록
+        document.querySelector("#addBtn").addEventListener("click", ()=>{
+            //1. input 요소에 입력한 문자열을 읽어와서 
+            let name = document.querySelector("#inputName").value
+            //2. names 배열에 push 한다 (names 배열에 저장한다)
+            names.push(name);
+           
+        });
+
+        //추가 버튼을 눌렀을때 실행할 함수 등록2
+        document.querySelector("#addBtn2").addEventListener("click", ()=>{
+            //1. input 요소에 입력한 문자열을 읽어와서 
+            //2. names 배열에 push 한다 (names 배열에 저장한다)
+            names.push(document.querySelector("#inputName").value);
+           
+        });
+    </script>
+</body>
+</html>

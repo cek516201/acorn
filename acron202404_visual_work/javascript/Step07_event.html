@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step07_event.html</title>
+    <style>
+        .box{
+            width: 500px;
+            height: 500px;
+            border: 1px solid red;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box"></div>
+    </div>
+    <script>
+        /*
+            .addEventListener("이벤트명", callback 함수)
+            - mousemove, mouseover, mouseout, mousedown  
+            - keydown, keyup
+            - focus, blur
+            - click, submit 등등
+        */
+        document.querySelector(".box").addEventListener("mousemove", (e)=>{
+            //e 는 발생한 event 정보를 담고 있는 object 이다 
+            console.log(e);
+            // 이벤트가 발생한 요소의 참조값
+            const target = e.target;
+            // 마우스의 상대 좌표
+            const x = e.offsetX;
+            const y = e.offsetY;
+            // 출력할 문자열 구성하기
+            const info = `x:${x}, y:${y}`;
+            // 이벤트가 발생한 바로 그 요소의 innerText 로 출력하기
+            target.innerText = info;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step01_DataType11.html</title>
+</head>
+<body>
+    <h1>function type 의 매개변수</h1>
+    <script>
+        let printMsg = function(msg){
+            console.log("-----------");
+            console.log(msg);
+            console.log("-----------");
+        };
+
+        printMsg("hello");
+        printMsg("bye");
+
+        //매개 변수가 2개인 함수
+        let printSum = function(num1, num2){
+            //매개 변수에 전달된 2개의 값을 + 연산을해서 
+            let result=num1+num2;
+            //결과값을 콘솔창에 출력
+            console.log(result);
+        };
+
+        printSum(10, 20);
+        printSum(100, -10);
+        
+        let getSum = function(num1, num2){
+            //매개 변수에 전달된 두수의 합을 구해서
+            let result=num1+num2;
+            //결과값을 리턴하기
+            return result;
+        }
+
+        let result1 = getSum(10, 20);
+        let result2 = getSum(100, -10);
+    </script>
+</body>
+</html>

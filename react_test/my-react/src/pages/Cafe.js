@@ -95,7 +95,7 @@ function Cafe() {
 
     return (
         <>
-            <Link to="/cafes/new">새글 작성</Link>
+            <Link to="/cafes/new">새 글 작성</Link>
             <h1>Cafe 글 목록 입니다</h1>
             <Table striped bordered size="sm">
                 <thead>
@@ -112,7 +112,9 @@ function Cafe() {
                         pageInfo.list.map(item=>(
                             <tr key={item.num}>
                                 <td>{item.num}</td>
-                                <td>{item.title}</td>
+                                <td>
+                                    <Link to={`/cafes/${item.num}?condition=${searchState.condition}&keyword=${searchState.keyword}`}>{item.title}</Link>
+                                </td>
                                 <td>{item.writer}</td>
                                 <td>{item.viewCount}</td>
                                 <td>{item.regdate}</td>

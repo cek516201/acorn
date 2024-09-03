@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step05_loop3.html</title>
+</head>
+<body>
+    <div class="container">
+        <h1>while 문 테스트</h1>
+        <button id="startBtn">반복시작</button>
+        <button id="startBtn2">반복시작2</button>
+        <button id="startBtn3">반복시작3</button>
+    </div>
+    <script>
+        document.querySelector("#startBtn").addEventListener("click", ()=>{
+            let count=0;
+            while(true){
+                console.log(count);
+                count++;
+                if(count == 10){
+                    break;
+                }
+            }
+        });
+
+        document.querySelector("#startBtn2").addEventListener("click", ()=>{
+            //count 의 초기값을 0 이고 
+            let count=0;
+            //count 가 10보다 작은 동안에 계속 반복 수행하기 
+            while(count<10){
+                console.log(count);
+                count++;
+            }
+        });
+
+        document.querySelector("#startBtn3").addEventListener("click", ()=>{
+            for(let i=0; i<10; i++){
+                console.log(i);
+            }
+        });
+    </script>
+</body>
+</html>
