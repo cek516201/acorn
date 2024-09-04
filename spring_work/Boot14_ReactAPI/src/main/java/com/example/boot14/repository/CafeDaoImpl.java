@@ -33,13 +33,11 @@ public class CafeDaoImpl implements CafeDao{
 
 	@Override
 	public CafeDto getData(int num) {
-		
 		return session.selectOne("cafe.getData", num);
 	}
 
 	@Override
 	public CafeDto getDetail(CafeDto dto) {
-		
 		return session.selectOne("cafe.getDetail", dto);
 	}
 

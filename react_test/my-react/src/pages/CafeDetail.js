@@ -8,7 +8,7 @@ import myCss from './css/cafe_detail.module.css'
 import binder from 'classnames/bind'
 import { useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
-import ConfirmModal from './../components/ComfirmModal';
+import ConfirmModal from "../components/ComfirmModal";
 //cx 함수 
 const cx = binder.bind(myCss)
 
@@ -40,12 +40,18 @@ function CafeDetail() {
     const userName = useSelector(state => state.userName)
     //javascript 로 경로 이동하기 위한 Hook
     const navigate = useNavigate()
-    // Confirm 모달을 띄울지 여부를 상태값으로 관리
+    //Confirm 모달을 띄울지 여부를 상태값으로 관리하기 
     const [confirmShow, setConfirmShow] = useState(false)
-    // 글 삭제 확인을 눌렀을 때 호출되는 함수
+    //글 삭제 확인을 눌렀을때 호출되는 함수 
     const handleYes = () => {
-
+        axios.delete(`/cafes/${num}`)
+            .then(res => {
+                console.log(res.data)
+                navigate("/cafes")
+            })
+            .catch(err => console.log(err))
     }
+
     return (
         <div>
             <nav>
@@ -91,8 +97,9 @@ function CafeDetail() {
                     <Button variant="danger" onClick={() => setConfirmShow(true)}>삭제</Button>
                 </>
             }
-            <ConfirmModal show={confirmShow} message={"글을 삭제하시겠습니까?"} yes={handleYes()} no={setConfirmShow(false)} />
-        </div >
+            <ConfirmModal show={confirmShow} message="글을 삭제하시겠습니까?"
+                yes={handleYes} no={() => setConfirmShow(false)} />
+        </div>
     );
 }
 

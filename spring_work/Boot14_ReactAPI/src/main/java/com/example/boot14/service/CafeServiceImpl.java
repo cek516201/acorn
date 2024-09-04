@@ -42,12 +42,8 @@ public class CafeServiceImpl implements CafeService {
 		dto.setEndRowNum(endRowNum);
 		List<CafeDto> list = cafeDao.getList(dto);
 
-		return Map.of("list", list,
-				"startPageNum", startPageNum,
-				"endPageNum", endPageNum,
-				"totalPageCount", totalPageCount,
-				"pageNum", pageNum,
-				"totalRow", totalRow);
+		return Map.of("list", list, "startPageNum", startPageNum, "endPageNum", endPageNum, "totalPageCount",
+				totalPageCount, "pageNum", pageNum, "totalRow", totalRow);
 	}
 
 	@Override
@@ -63,7 +59,7 @@ public class CafeServiceImpl implements CafeService {
 		CafeDto resultDto = cafeDao.getDetail(dto);
 		resultDto.setCondition(dto.getCondition());
 		resultDto.setKeyword(dto.getKeyword());
-		
+
 		return Map.of("dto", resultDto);
 	}
 
@@ -73,9 +69,8 @@ public class CafeServiceImpl implements CafeService {
 	}
 
 	@Override
-	public void getData(Model model, int num) {
-		// TODO Auto-generated method stub
-
+	public CafeDto getData(int num) {
+		return cafeDao.getData(num);
 	}
 
 	@Override
@@ -85,13 +80,11 @@ public class CafeServiceImpl implements CafeService {
 
 	@Override
 	public CafeCommentDto saveComment(CafeCommentDto dto) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Map<String, Object> getCommentList(CafeCommentDto dto) {
-
 		return null;
 	}
 
