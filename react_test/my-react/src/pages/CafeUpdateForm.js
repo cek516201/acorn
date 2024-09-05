@@ -22,8 +22,8 @@ function CafeUpdateForm() {
     const handleCancel = () => {
         //저장된 내용을 이용해서 원상 복귀 시킨다
         inputTitle.current.value = savedData.title
-        inputContent.current.value = savedData.content
-        setEditorTool(initEditor("content"));
+        // 저장된 내용을 SmartEditor에 덮어쓰기 한다
+        editorTool.setContents(savedData.content)
     }
 
     useEffect(() => {
@@ -43,6 +43,23 @@ function CafeUpdateForm() {
             .catch(error => {
                 console.log(error)
             })
+
+        const handleResize = () => {
+            // 리사이즈 될때마다 초기화
+            setEditorTool(initEditor("content"))
+        }
+        // // window가 resize 될때마다 동작할 리스너 함수 등록
+        // window.addEventListener("resize", handleResize)
+
+        console.log("CafeUpdateForm이 활성화됨")
+        // useEffect의 return은 해당 컴포넌트가 비활성화 될때 호출된다
+        // 무언가 마무리작업을 리턴해주는 함수안에서 하면 된다
+        return () => {
+            console.log("호출")
+            // 이벤트 리스너 제거
+            window.removeEventListener("resize,", handleResize)
+
+        }
     }, [])
 
     return (

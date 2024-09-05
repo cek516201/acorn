@@ -23,7 +23,7 @@ class GalleryAdapter(
     }
     //매개변수로 전달되는 인덱스에 해당하는 아이템 리턴
     override fun getItem(index: Int): Any {
-        return list.get(index)
+       return list.get(index)
     }
     //매개변수로 전달되는 인덱스에 해당하는 아이템의 아이디(PK) 리턴
     override fun getItemId(index: Int): Long {
@@ -59,4 +59,15 @@ class GalleryAdapter(
         //리턴해 준다.
         return convertView2
     }
+
 }
+
+
+
+
+
+
+
+
+
+

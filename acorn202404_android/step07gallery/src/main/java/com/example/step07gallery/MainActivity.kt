@@ -83,8 +83,18 @@ class MainActivity : AppCompatActivity(), OnItemClickListener{
         // Intent 객체의 생성자에 첫번째 매개변수에는 Context type,
         // 두번째 매개변수에는 이동을 액티비티의 class type 을 전달해야 한다.
         val intent = Intent(this, DetailActivity::class.java)
-        // Intent 객체 "num"이라는 key 값으로 번호()
+        // Intent 객체 "num" 이라는 key 값으로 번호(pk) 를 담는다.
+        intent.putExtra("num", id)
         // startActivity() 메소드를 이용해서 액티비티 이동하기
         startActivity(intent)
     }
 }
+
+
+
+
+
+
+
+
+

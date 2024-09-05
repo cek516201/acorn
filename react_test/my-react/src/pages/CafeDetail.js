@@ -99,8 +99,16 @@ function CafeDetail() {
             }
             <ConfirmModal show={confirmShow} message="글을 삭제하시겠습니까?"
                 yes={handleYes} no={() => setConfirmShow(false)} />
+
+            <h3>댓글입력</h3>
+            <form className={cx("comment-form")} action="/cafes/commments" method="post">
+                <input type="hidden" name="ref_group" defaultValue={state.num} />
+                <input type="hidden" name="target_id" defaultValue={state.writer} />
+                <textarea name="content"></textarea>
+                <button type="submit">등록</button>
+            </form>
         </div>
-    );
+    )
 }
 
 export default CafeDetail;

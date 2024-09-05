@@ -1,6 +1,5 @@
 package com.example.step07gallery
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
@@ -16,7 +15,6 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 class DetailActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
@@ -34,7 +32,7 @@ class DetailActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.Main) {
             // json 문자열
-            val result = RestApiClient.get("http://192.168.0.181:8888/gallery/$num")
+            val result = RestApiClient.get("http://192.168.0.203:8888/gallery/$num")
             // json 문자열은 { } 구조 이기때문에 JSONObject 객체를 생성한다
             val jsonObj = JSONObject(result)
             textWriter.text = jsonObj.getString("writer")
@@ -42,10 +40,18 @@ class DetailActivity : AppCompatActivity() {
             textRegdate.text = jsonObj.getString("regdate")
             // Glide 를 이용해서 ImageView 에 이미지 출력하기
             Glide.with(this@DetailActivity)
-                .load("http://192.168.0.181:8888/upload/images/${jsonObj.getString("saveFileName")}")
+                .load("http://192.168.0.203:8888/upload/images/${jsonObj.getString("saveFileName")}")
                 .fitCenter()
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(imageView)
         }
     }
 }
+
+
+
+
+
+
+
+
