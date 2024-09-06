@@ -1,4 +1,4 @@
-package com.example.step09customview;
+package com.example.step09example;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -17,21 +17,21 @@ import androidx.annotation.Nullable;
 // 2. 생성자 정의하기
 // 3. onDraw() 메소드를 오버라이드해서 화면을 구성한다
 
-public class YourView extends View {
+public class Banner extends View {
     int x = 10;
     Paint p;
     int textWidth;
     int viewWidth;
+    int viewHeight;
+    String bannerText;
 
     // layout xml 없이 단독으로 화면 전체를 채울때
-    public YourView(Context context) {
+    public Banner(Context context) {
         super(context);
-        init();
     }
 
-    public YourView(Context context, @Nullable AttributeSet attrs) {
+    public Banner(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     Handler handler = new Handler() {
@@ -47,7 +47,9 @@ public class YourView extends View {
         }
     };
 
-    public void init() {
+    public void init(String bannerText) {
+        this.bannerText = bannerText;
+
         handler.sendEmptyMessageDelayed(0, 10);
 
         // 글자 출력하기
@@ -55,7 +57,7 @@ public class YourView extends View {
         p.setColor(Color.RED);
         p.setTextSize(100);
         // 글자의 넓이 알아내기
-        textWidth = (int) p.measureText("Hello");
+        textWidth = (int) p.measureText(bannerText);
     }
 
     // 매개변수로 전달되는 Canvas 객체를 이용해서 그림을 그리면 그린 내용이 화면에 나타난다
@@ -64,12 +66,15 @@ public class YourView extends View {
     protected void onDraw(@NonNull Canvas canvas) {
         canvas.drawColor(Color.YELLOW);
 
-        canvas.drawText("Hello", x, 110, p);
+        if (bannerText != null) {
+            canvas.drawText(bannerText, x, viewHeight/2, p);
+        }
     }
 
     // View가 최초 화면에 출력될때 호출되고 View의 크기가 변경될때 다시 호출된다
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         viewWidth = w;
+        viewHeight = h;
     }
 }

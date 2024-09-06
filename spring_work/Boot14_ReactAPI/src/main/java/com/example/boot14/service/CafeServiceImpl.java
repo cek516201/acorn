@@ -80,7 +80,19 @@ public class CafeServiceImpl implements CafeService {
 
 	@Override
 	public CafeCommentDto saveComment(CafeCommentDto dto) {
-		return null;
+		// 댓글 작성자는 SpringSecurity로부터 얻어내기
+		String writer = SecurityContextHolder.getContext().getAuthentication().getName();
+		// 글 번호를 미리 얻어낸다
+		int num = cafeCommentDao.getSequence();
+		dto.setWriter(writer);
+		dto.setNum(num);
+		// 만일 comment_group 번호가 넘어오지 않으면 원글의 댓글
+		if (dto.getComment_group() == 0) {
+			// 원글의 댓글인경우 댓글의 번호가 곧 comment_group 번호가 된다
+			dto.setComment_group(PAGE_DISPLAY_COUNT);
+		}
+		cafeCommentDao.insert(dto);
+		return cafeCommentDao.getData(num);
 	}
 
 	@Override
