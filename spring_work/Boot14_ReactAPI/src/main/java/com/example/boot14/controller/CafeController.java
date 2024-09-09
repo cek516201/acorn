@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.boot14.dto.CafeCommentDto;
 import com.example.boot14.dto.CafeDto;
+import com.example.boot14.repository.CafeDao;
 import com.example.boot14.service.CafeService;
 
 import java.util.Map;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class CafeController {
 	@PostMapping("/cafes/{num}/comments")
 	public CafeCommentDto commentInsert(CafeCommentDto dto) {
-		// FormData를 클라이언트에서 전송했기 때문에 @ResponseBody 어노테이션은 필요없다
+		// FormData를 클라이언트에서 전송했기 때문에 @RequestBody 어노테이션은 필요없다
 		
 		return service.saveComment(dto);
 	}

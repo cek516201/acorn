@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 
 public class Banner extends View {
     int x = 10;
+    int y;
     Paint p;
     int textWidth;
     int viewWidth;
@@ -67,7 +68,7 @@ public class Banner extends View {
         canvas.drawColor(Color.YELLOW);
 
         if (bannerText != null) {
-            canvas.drawText(bannerText, x, viewHeight/2, p);
+            canvas.drawText(bannerText, x, y, p);
         }
     }
 
@@ -75,6 +76,6 @@ public class Banner extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         viewWidth = w;
-        viewHeight = h;
+        y = h / 2 + 100 / 2;
     }
 }
