@@ -95,7 +95,7 @@ function Cafe() {
 
     return (
         <>
-            <Link to="/cafes/new">새 글 작성</Link>
+            <Link to="/cafes/new">새글 작성</Link>
             <h1>Cafe 글 목록 입니다</h1>
             <Table striped bordered size="sm">
                 <thead>
