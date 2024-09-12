@@ -10,7 +10,6 @@ import com.example.boot14.dto.CafeCommentDto;
 
 @Repository
 public class CafeCommentDaoImpl implements CafeCommentDao{
-	
 	@Autowired private SqlSession session;
 	
 	@Override
@@ -51,5 +50,4 @@ public class CafeCommentDaoImpl implements CafeCommentDao{
 		
 		return session.selectOne("cafeComment.getCount", ref_group);
 	}
-
 }
