@@ -18,6 +18,21 @@ import com.example.boot14.service.CafeService;
 
 @RestController
 public class CafeController {
+	@GetMapping("/cafes/{num}/comments")
+	public Map<String, Object> commentList(@PathVariable("num") int ref_group, int pageNum){
+		CafeCommentDto dto=new CafeCommentDto();
+		dto.setRef_group(ref_group);
+		dto.setPageNum(pageNum);
+		
+		try {
+			Thread.sleep(3000);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return service.getCommentList(dto);
+	}
+	
 	@PatchMapping("/cafes/{num}/comments/{commentNum}")
 	public Map<String, Object> commentUpdate(@PathVariable("commentNum") int commentNum){
 		//service.updateContent(commentNum);
