@@ -45,7 +45,6 @@ function BsNavBar() {
                         <Nav className="me-auto">
                             <Nav.Link as={NavLink} to="/">Home</Nav.Link>
                             <Nav.Link as={NavLink} to="/members">Member</Nav.Link>
-                            <Nav.Link as={NavLink} to="/posts">Post</Nav.Link>
                             <Nav.Link as={NavLink} to="/gallery">Gallery</Nav.Link>
                             <Nav.Link as={NavLink} to="/cafes">Cafe</Nav.Link>
                         </Nav>
