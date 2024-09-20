@@ -54,6 +54,7 @@ public class GameView extends View {
     //적기가 1 SET 만들어진 이후에 일정 주기 이후에 다시 만들어 지도록 count 값 관리하기
     int postCount = 0;
 
+    SoundManager soundManager;
 
     public GameView(Context context) {
         super(context);
@@ -209,6 +210,19 @@ public class GameView extends View {
             Missile m = missList.get(i);
             for (int j = 0; j < enemyList.size(); j++) {
                 Enemy e = enemyList.get(j);
+
+                boolean isStrike = m.x > e.x - unitSize / 2 &&
+                        m.x < e.x + unitSize / 2 &&
+                        m.y > e.y - unitSize / 2 &&
+                        m.y < e.y + unitSize / 2;
+                if (isStrike) {
+                    soundManager.playSound(GameActivity.SOUND_SHOOT);
+                    e.energy -= 50;
+                    if (e.energy <= 0) {
+                        e.isDead = true;
+                    }
+                    m.isDead = true;
+                }
             }
         }
     }
@@ -226,7 +240,7 @@ public class GameView extends View {
                 e.x = enemyX[i]; //미리 계산한 x 좌표를 5개의 적기에 순서대로 넣어준다
                 e.y = unitSize / 2;
                 e.type = ran.nextInt(2);
-                e.energy = 100;
+                e.energy = 50 + e.type * 50;
                 e.imageIndex = 0;
                 //적기 List 에 추가하기
                 enemyList.add(e);
