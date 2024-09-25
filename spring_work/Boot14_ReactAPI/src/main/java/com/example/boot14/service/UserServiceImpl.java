@@ -28,9 +28,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto getInfo() {
-		// 개인정보를 본다는 것은 이미 로그인을 한 상태
-		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-		return ;
+		//개인 정보를 본다는 것은 이미 로그인을 한 상태인데 로그인된 userName 은 어떻게 얻어내지???
+		//Spring Security 의 기능을 통해서 얻어낸다 
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();	
+		
+		return dao.getData(userName);
 	}
 
 	@Override
