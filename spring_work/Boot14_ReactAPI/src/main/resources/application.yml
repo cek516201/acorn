@@ -22,8 +22,4 @@ spring:
 # mybatis 설정
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.example.boot14.**
-        
-        
-     
-   
+  type-aliases-package: com.example.boot14.**   

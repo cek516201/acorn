@@ -169,7 +169,7 @@ function UserForm() {
                         이메일 형식에 맞게 입력해 주세요
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Button type="submit" disabled={!isValid.userName || !isValid.password || !isValid.email} variant="primary" type="submit">가입</Button>
+                <Button type="submit" disabled={!isValid.userName || !isValid.password || !isValid.email} variant="primary">가입</Button>
             </Form>
         </>
     );

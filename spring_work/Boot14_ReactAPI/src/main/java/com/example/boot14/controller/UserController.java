@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.boot14.dto.UserDto;
 import com.example.boot14.service.UserService;
 import com.example.boot14.util.JwtUtil;
+
 
 @RestController
 public class UserController {
@@ -61,6 +63,13 @@ public class UserController {
 	@PostMapping("/user")
 	public Map<String, Object> addUser(@RequestBody UserDto dto){
 		userService.addUser(dto);
+		return Map.of("isSuccess", true);
+	}
+	
+	@PatchMapping("/user")
+	public Map<String, Object> updateUser(UserDto dto) {
+		userService.updateUser(dto);
+		
 		return Map.of("isSuccess", true);
 	}
 }
