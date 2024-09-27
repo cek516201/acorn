@@ -6,11 +6,13 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.boot14.dto.UserDto;
+import com.example.boot14.exception.PasswordException;
 import com.example.boot14.repository.UserDao;
 
 @Service
@@ -74,8 +76,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void updatePassword(UserDto dto) {
-		// TODO Auto-generated method stub
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		String encodedPwd = dao.getData(userName).getPassword();
+		boolean isValid = BCrypt.checkpw(dto.getPassword(), encodedPwd);
+		if (!isValid) {
+			throw new PasswordException("기존 비밀번호가 일치하지 않습니다");
+		}
 
+		dto.setNewPassword(encoder.encode(dto.getNewPassword()));
+		dto.setUserName(userName);
+		//dao.updatePwd(dto);
 	}
 
 	@Override
