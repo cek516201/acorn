@@ -12,6 +12,7 @@ import com.example.boot14.dto.MemberDto;
 public class MemberDaoImpl implements MemberDao{
 	// mybatis 기반의 dao 에서 필요한 의존객체 
 	@Autowired SqlSession session;
+	
 	@Override
 	public void insert(MemberDto dto) {
 		session.insert("member.insert", dto);
@@ -36,10 +37,4 @@ public class MemberDaoImpl implements MemberDao{
 	public int getSequence() {
 		return session.selectOne("member.getSequence");
 	}
-
 }
-
-
-
-
-

@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
 		dto.setNewPassword(encoder.encode(dto.getNewPassword()));
 		dto.setUserName(userName);
-		//dao.updatePwd(dto);
+		dao.updatePwd(dto);
 	}
 
 	@Override

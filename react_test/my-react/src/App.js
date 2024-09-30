@@ -1,5 +1,5 @@
 // App.css 적용하기 (내부 css)
-import { NavLink, useOutlet } from 'react-router-dom';
+import { useOutlet } from 'react-router-dom';
 import './App.css'
 //bootstrap css 로딩하기 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -21,7 +21,7 @@ function App() {
       <div className="container">
         <div>{currentOutlet}</div>
       </div>
-      <LoginModal show={loginModal.show} message={loginModal.message} url={loginModal.url}/>
+      { loginModal.show && <LoginModal show={loginModal.show} message={loginModal.message} url={loginModal.url}/> }
     </>
   );
 }

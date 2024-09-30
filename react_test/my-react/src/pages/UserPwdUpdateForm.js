@@ -1,13 +1,13 @@
 // src/pages/UserPwdUpdateForm.js
 
+import axios from "axios";
 import { useState } from "react";
 import { Alert, Button, Form } from "react-bootstrap";
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // 공백이 아닌 한글자가 1 번이상 반복되어야 통과되는 정규 표현식 
-const reg_password = /^[^\s]+$/ // ^\s : 공백이 아닌 한글자
+const reg_password = /^[^\s]+$/
 // 특수문자가 포함되어야 통과되는 정규표현식
 const reg_newPassword = /[\W]/
 
@@ -31,6 +31,7 @@ function UserPwdUpdateForm() {
         newPassword: false
     })
 
+    //에러메세지를 관리하기 위한 상태값
     const [error, setError] = useState({
         show: false,
         message: ""
@@ -79,31 +80,40 @@ function UserPwdUpdateForm() {
         }
     }
 
-    const dispatch = useDispatch()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
+    //폼 전송 이벤트가 발생했을때 실행할 함수
     const handleSubmit = (e) => {
-        e.preventDefault();
-
+        e.preventDefault()
         axios.patch("/user/password", formData)
             .then(res => {
                 console.log(res.data)
-                //localStorage 에서 token 을 삭제한다
+                //정상적으로 비밀번호가 변경되었다면 어떤처리를 해야하나?
+                //1. 로그아웃 처리를 하고
                 delete localStorage.token
-
-                navigate(`/`)
+                //2. 위치를 / 최상위 경로로 변경하고
+                navigate("/")
+                //3. "변경된 비밀번호로 새로 로그인 하세요" 라는  로그인 모달을 띄운다 
+                alert("비밀번호를 변경후 로그아웃 되었습니다.")
+                // 0.1 초 이후에 실행되는 함수 등록 
+                setTimeout(() => {
+                    //아래의 코드가 바로 실행되면 ProtectedRoute 때문에 에러 발생
+                    dispatch({ type: "UPDATE_USER", payload: null })
+                }, 100)
 
                 const payload = {
                     show: true,
-                    message: "변경된 비밀번호로 새로 로그인하세요"
+                    message: "변경된 비밀번호로 다시 로그인 하세요",
                 }
-
-                // 로그인 창을 띄우는 action을 발행하면서 payload를 전달한다
-                dispatch({ type: "LOGIN_MODAL" }, payload)
+                //로그인창을 띄우는 action 을 발행하면서 payload 를 전달한다. 
+                dispatch({ type: "LOGIN_MODAL", payload })
             })
-            .catch(err => {
-                console.log(err)
-                const message = err.response.data.message
+            .catch(error => {
+                console.log(error)
+                //에러가 발생하면 어떤 처리를 해야 하나?
+                //에러 메시지
+                const message = error.response.data.message
                 setError({
                     show: true,
                     message
@@ -116,7 +126,7 @@ function UserPwdUpdateForm() {
             <h1>비밀번호 수정 양식</h1>
             {error.show && <Alert variant="danger">{error.message}</Alert>}
             <Form onSubmit={handleSubmit}>
-                <Form.Group>
+                <Form.Group className="mb-3">
                     <Form.Label>기존 비밀 번호</Form.Label>
                     <Form.Control isValid={isValid.password}
                         isInvalid={!isValid.password && isDirty.password} onChange={handleChange} type="password" name="password" />
@@ -124,7 +134,7 @@ function UserPwdUpdateForm() {
                         반드시 입력하세요!
                     </div>
                 </Form.Group>
-                <Form.Group>
+                <Form.Group className="mb-3">
                     <Form.Label>새 비밀 번호</Form.Label>
                     <Form.Control isValid={isValid.newPassword}
                         isInvalid={!isValid.newPassword && isDirty.newPassword} onChange={handleChange} type="password" name="newPassword" />
@@ -135,7 +145,7 @@ function UserPwdUpdateForm() {
                         비밀번호를 확인하세요!
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group>
+                <Form.Group className="mb-3">
                     <Form.Label>새 비밀 번호 확인</Form.Label>
                     <Form.Control onChange={handleChange} type="password" name="newPassword2" />
                 </Form.Group>
