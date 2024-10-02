@@ -1,6 +1,7 @@
 package com.example.boot14;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -15,10 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.boot14.dto.UserDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -78,4 +81,21 @@ public class UserControllerTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.canUse", is(true)));
     }
+
+	@WithUserDetails("asd") // 실제 존재하는 테스트 아이디를 이용한다
+	@Test
+	void userInfoTest() throws Exception {
+		// get 방식의 /user 요청을 하기 위해서는 token이 있어야하는데 어떻게해야하나
+		String result = mockMvc.perform(get("/user"))
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andReturn()
+			.getResponse()
+			.getContentAsString();
+
+		System.out.println(result);
+
+		String userName = JsonPath.read(result, "$.userName");
+		assertEquals(userName, "asd");
+	}
 }
