@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import AlertModal from "./AlertModal";
 import { useState } from "react";
+import axios from "axios";
 
 function BsNavBar() {
     //로그인된 사용자명이 있는지 store 에서 읽어와 본다.
@@ -25,6 +26,8 @@ function BsNavBar() {
         navigate("/")
         // 알림 모달 띄우기
         setAlertShow(true)
+        // axios의 요청 Header에 설정된 값 초기화 하기
+        delete axios.defaults.headers.common["Authorization"]
     }
 
     const handleYes = () => {
@@ -35,7 +38,7 @@ function BsNavBar() {
     return (
         <>
             <AlertModal show={alertShow} message={"로그 아웃 되었습니다"} yes={handleYes} />
-            <Navbar expand="md" className="bg-warning mb-2">
+            <Navbar fixed="top" expand="md" className="bg-warning mb-2">
 
                 <Container>
                     <Navbar.Brand as={NavLink} to="/">Acorn</Navbar.Brand>

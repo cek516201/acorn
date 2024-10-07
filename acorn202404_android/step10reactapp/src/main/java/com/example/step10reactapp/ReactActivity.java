@@ -13,6 +13,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,10 +28,28 @@ public class ReactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_react);
+
+        // native ui의 동작 정의하기
+        ImageButton homeBtn = findViewById(R.id.btn_home);
+        homeBtn.setOnClickListener(view -> {
+            finish(); // 액티비티 종료
+        });
+
+        ImageButton callBtn = findViewById(R.id.btn_dial);
+        homeBtn.setOnClickListener(view -> {
+            // 전화걸기 intent
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            // Intent intent = new Intent(Intent.ACTION_CALL);
+            // 전화번호 전달
+            intent.setData(Uri.parse("tel:010-1111-2222"));
+            // 해당 intent를 받아줄 수 있는 app을 실행해달라고 운영체제에 요청을 한다
+            startActivity(intent);
+        });
+
         // webView의 참조값 얻어오기
         WebView webView = findViewById(R.id.webView);
         // webView 설정 객체 얻어오기
-        WebSettings ws=webView.getSettings();
+        WebSettings ws = webView.getSettings();
         ws.setJavaScriptEnabled(true); // javascript 해석 가능하도록
         ws.setDomStorageEnabled(true); // localStorage, sessionStorage 등을 사용 가능하도록
         // 외부로 리소스를 요청할 수 있도록 Mixed Content 모드 설정 (HTTPS에서 HTTP 요청 가능)
@@ -38,7 +57,7 @@ public class ReactActivity extends AppCompatActivity {
             ws.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
         //WebView 클라이언트 객체를 생성해서 넣어주기
-        webView.setWebViewClient(new WebViewClient(){
+        webView.setWebViewClient(new WebViewClient() {
             //재정의 하고 싶은 메소드가 있으면 여기서 해준다.
 
         });
@@ -54,13 +73,13 @@ public class ReactActivity extends AppCompatActivity {
         public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> uploadFile, WebChromeClient.FileChooserParams fileChooserParams) {
 
 
-            if(mFilePathCallback !=null) {
+            if (mFilePathCallback != null) {
                 mFilePathCallback.onReceiveValue(null);
                 mFilePathCallback = null;
             }
 
             mFilePathCallback = uploadFile;
-            Intent i =new Intent(Intent.ACTION_GET_CONTENT);
+            Intent i = new Intent(Intent.ACTION_GET_CONTENT);
             i.addCategory(Intent.CATEGORY_OPENABLE);
             i.setType("image/*");
 
@@ -85,7 +104,7 @@ public class ReactActivity extends AppCompatActivity {
 
                 // Continue only if the File was successfully created
                 if (photoFile != null) {
-                    mCameraPhotoPath = "file:"+photoFile.getAbsolutePath();
+                    mCameraPhotoPath = "file:" + photoFile.getAbsolutePath();
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                             Uri.fromFile(photoFile));
                 } else {
@@ -98,7 +117,7 @@ public class ReactActivity extends AppCompatActivity {
             contentSelectionIntent.setType(TYPE_IMAGE);
 
             Intent[] intentArray;
-            if(takePictureIntent != null) {
+            if (takePictureIntent != null) {
                 intentArray = new Intent[]{takePictureIntent};
             } else {
                 intentArray = new Intent[0];
