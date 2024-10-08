@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -18,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.boot14.dto.UserDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,6 +32,7 @@ public class UserControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
+	// 객체(dto 등)에 저장된 내용을 json 문자열로 변경해주는 기능을 가지고 있는 객체
 	ObjectMapper oMapper = new ObjectMapper();
 
 	@Test
@@ -97,5 +100,38 @@ public class UserControllerTest {
 
 		String userName = JsonPath.read(result, "$.userName");
 		assertEquals(userName, "asd");
+	}
+
+	// 회원가입 테스트
+	@Transactional
+	@Test
+	void testAddUser() throws Exception {
+		// 회원가입 정보를 UserDto에 담는다
+		UserDto dto = UserDto.builder()
+			.userName("testUser")
+			.password("testpwd")
+			.email("testemail@")
+			.build();
+
+		// 회원가입 요청을 보낸다
+		mockMvc.perform(post("/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(oMapper.writeValueAsString(dto)))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.isSuccess", is(true)));
+	}
+
+	// 회원정보 수정 테스트
+	@Transactional
+	@WithUserDetails("asd") // 실제 존재하는 테스트 아이디를 이용한다
+	@Test
+	void testUpdateUser() throws Exception {
+		// 회원정보 수정 요청을 보낸다
+		mockMvc.perform(patch("/user")
+				.contentType(MediaType.APPLICATION_JSON)
+				.param("userName", "asd")
+				.param("email", "testemail@"))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.isSuccess", is(true)));
 	}
 }

@@ -18,7 +18,7 @@ import UserForm from '../pages/UserForm'
 import UserPwdUpdateForm from '../pages/UserPwdUpdateForm'
 import UserUpdateForm from '../pages/UserUpdateForm'
 
-const { createBrowserRouter } = require("react-router-dom")
+const { createHashRouter } = require("react-router-dom")
 
 //라우트 정보를 배열에 저장
 const routes = [
@@ -45,7 +45,7 @@ const routes = [
 ]
 
 //BrowserRouter 를 만들기
-const router = createBrowserRouter([{
+const router = createHashRouter([{
     path: "/",
     element: <App />,
     children: routes.map((route) => {
