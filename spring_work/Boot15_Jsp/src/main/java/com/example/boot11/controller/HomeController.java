@@ -19,7 +19,9 @@ public class HomeController {
 		// 어떤 key 값으로 어떤 type 데이터를 담았는지 기억을 하고 템플릿 페이지를 만들어야 한다 
 		m.addAttribute("notice", notice);
 		
-		// /templates/home.html  타임리프 페이지로 응답 
+		// /WEB-INF/views/home.jsp 페이지로 forward 이동해서 응답하겠다는 의미
+		// prefix : /WEB-INF/views
+		// suffix : .jsp
 		return "home";
 	}
 }
