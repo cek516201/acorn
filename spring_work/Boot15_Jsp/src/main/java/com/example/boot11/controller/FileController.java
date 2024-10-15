@@ -52,15 +52,3 @@ public class FileController {
 		return "file/list";
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
