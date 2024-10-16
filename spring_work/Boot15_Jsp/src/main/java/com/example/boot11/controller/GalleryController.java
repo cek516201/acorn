@@ -49,7 +49,7 @@ public class GalleryController {
 		/*
 		 *  서비스에 Model 객체와 pageNum 을 전달해서 
 		 *  Model 에 pageNum 에 해당하는 글 목록이 담기도록 한다.
-		 *  Model 에 담긴 내용을 view page(Thymeleaf 템플릿페이지) 에서 사용할수 있다
+		 *  Model 에 담긴 내용을 view page(jsp 페이지) 에서 사용할수 있다
 		 */
 		service.selectPage(model, pageNum);
 		
