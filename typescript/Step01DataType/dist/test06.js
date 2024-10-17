@@ -14,7 +14,7 @@
     function getMsg() {
         return "hello";
     }
-    // result는 string type으로 추론된다
+    // result는 string type으로 추론한다
     let result = getMsg();
     // result = 10
 })();
