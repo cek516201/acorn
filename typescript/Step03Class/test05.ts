@@ -25,4 +25,9 @@
   const c1 = new MyCar(new Engine())
   c1.drive()
   c1.myDrive()
+
+  // 다형성
+  const c2: Car = new MyCar(new Engine())
+  const c3: Car = c2
+  const c4: MyCar = c3 as MyCar // as로 캐스팅
 })()
