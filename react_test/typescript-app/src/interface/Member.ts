@@ -1,5 +1,5 @@
 export default interface Member {
-  readonly num: number
+  readonly num?: number
   name: string
   addr: string
 }
